@@ -112,7 +112,7 @@
 			aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="fa fa-bars"></span>
 		</button>
-		<a class="navbar-brand" href="{{ url('/') }}"><img src="{{ config('const.site_setting.logo') }}" alt="{{ config('const.site_setting.name') }} Logo" /></a>
+		<a class="navbar-brand" href="{{ url('/') }}"><img class="logo" src="{{ config('const.site_setting.logo') }}" alt="{{ config('const.site_setting.name') }} Logo" /></a>
 		<div class="search order-lg-last">
 			<input type="text" name="" id="serach_txt" placeholder="Search Product Brand And More" />
 			<i class="fa-solid fa-magnifying-glass pr-2"></i>
@@ -345,8 +345,8 @@
 	<!-- footer start-->
 	<footer class="text-center text-lg-start ">
 		<div class="row">
-			<div class="col-lg-4 col-md-6 mb-4 mb-lg-0 text-left info">
-				<img src="{{ config('const.footer.logo') }}" alt="{{ config('const.site_setting.name') }} Logo" />
+			<div class="col-lg-4 col-md-6 mb-4 mb-lg-0 text-center info">
+				<img src="{{ config('const.footer.logo') }}" class="footerlogo" alt="{{ config('const.site_setting.name') }} Logo" />
 				<p>{{ config('const.footer.description') }}</p>
 
 				<h5 class="text-uppercase mb-2 font-weight-bold mt-5">Follow Us</h5>
@@ -386,7 +386,7 @@
 					@if(isset($footer_cat) && !empty($footer_cat))
 					@foreach($footer_cat as $cat)
 					<li>
-						<a href="{{ route('collections', $cat->slug) }}">{{ strtoupper($cat->name) }}</a>
+						<a href="{{ route('Products') }}?category={{ $cat->slug }}">{{ strtoupper($cat->name) }}</a>
 					</li>
 					@endforeach
 					@endif

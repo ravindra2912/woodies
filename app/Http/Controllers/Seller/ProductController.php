@@ -13,7 +13,6 @@ use Validator;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Variants;
-use App\Models\SubCategory;
 use App\Models\VariantName;
 use Illuminate\Http\Request;
 use App\Models\ProductImages;
@@ -24,7 +23,6 @@ use App\Models\ProductVariants;
 use Illuminate\Support\Facades\DB;
 use App\Models\ProductInventoryLog;
 use App\Http\Controllers\Controller;
-use App\Models\ProductCategory;
 use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\DataTables;
 
@@ -68,8 +66,10 @@ class ProductController extends Controller
 					if ($row->is_variants == 1) {
 						$html .= '<a href="' . route('products_variants', $row->id) . '" class="btn btn-warning tableActionBtn editBtn ml-1" title="Product variants"><i class="right fas fa-sitemap"></i></a>';
 					}
-					$html .= '		<form action="' . route('product.destroy', $row->id) . '" id="deleteForm" method="POST">
-										<a class="btn btn-danger tableActionBtn deleteBtn" title="Delete Product"><i class="right fas fa-trash"></i></a>
+					$html .= '		<form action="' . route('product.destroy', $row->id) . '" id="deleteForm' . $row->id . '" method="post">
+										<input type="hidden" name="_token" value="'.csrf_token().'"> 
+    									<input type="hidden" name="_method" value="DELETE">
+										<button type="button" class="btn btn-danger tableActionBtn deleteBtn" onclick="deleteProduct(' . $row->id . ')" title="Delete Product"><i class="right fas fa-trash"></i></button>
 									</form>
 								</div>';
 					return $html;
@@ -89,7 +89,7 @@ class ProductController extends Controller
 			return Excel::download(new ProductExport($user_id, $start_date, $end_date, $status,  $search), 'Products.xlsx');
 		}
 
-		
+
 
 
 
@@ -119,7 +119,7 @@ class ProductController extends Controller
 
 			$rules = [
 				'product_name' => 'required|max:256',
-				'brand' => 'required|max:256',
+				// 'brand' => 'required|max:256',
 				'price' => 'required|numeric|gt:0|between:1,9999999999.99',
 				'category' => 'required',
 				'short_description' => 'required|max:250',
@@ -152,7 +152,8 @@ class ProductController extends Controller
 			$validator = Validator::make($request->all(), $rules);
 
 			if ($validator->fails()) { // Validation fails
-				$message = $validator->errors()->first();
+				// $message = $validator->errors()->first();
+				$message = $validator->errors();
 			} else {
 
 				$name = trim($request->product_name);
@@ -305,7 +306,7 @@ class ProductController extends Controller
 
 			$validate = [
 				'product_name' => 'required|max:256',
-				'brand' => 'required|max:256',
+				// 'brand' => 'required|max:256',
 				'price' => 'required|numeric|gt:0|between:1,9999999999.99',
 				'category' => 'required',
 				'short_description' => 'required|max:250',
@@ -409,9 +410,10 @@ class ProductController extends Controller
 
 		if (isset($product) && !empty($product) && isset($product->id)) {
 			try {
-				$product->remove();
+				$product->delete();
 				return redirect()->back()->with('success', 'Product has been deleted successfully');
 			} catch (\Exception $e) {
+				// dd($e->getMessage());
 				return redirect()->back()->with('danger', 'Some error occurred. Please try again after sometime');
 			}
 		} else {

@@ -135,7 +135,8 @@
 
 <section class="content">
 	<div class="container-fluid">
-		<form action="{{ route('product.update',$productData->id) }}" id="updateform" class="card card-primary">
+		<form action="{{ route('product.update',$productData->id) }}" id="updateform" class="card card-primary formaction" data-action="redirect">
+			@csrf
 			<div class="card-header">
 				<h3 class="card-title">Edit Product</h3>
 			</div>
@@ -145,17 +146,17 @@
 
 				<div class="form-group col-md-4 col-sm-6">
 					<label class="required">Product Name</label>
-					<input type="text" name="product_name" id="product_name" class="form-control" placeholder="Product Name" value="{{ isset($productData->name) && !empty($productData->name) ? $productData->name : '' }}">
+					<input type="text" name="product_name" id="product_name" class="form-control required" placeholder="Product Name" value="{{ isset($productData->name) && !empty($productData->name) ? $productData->name : '' }}">
 				</div>
 
 				<div class="form-group col-md-4 col-sm-6">
-					<label class="required">Brand</label>
+					<label>Brand</label>
 					<input type="text" name="brand" id="brand" class="form-control" value="{{ $productData->brand}}" placeholder="Brand">
 				</div>
 
 				<div class="form-group col-md-4 col-sm-6">
 					<label class="required">Price</label>
-					<input type="text" name="price" id="price" class="form-control" value="{{ isset($productData->price) && !empty($productData->price) ? $productData->price : 0 }}" onkeypress="return isNumberKey(event,this)" placeholder="Price">
+					<input type="text" name="price" id="price" class="form-control required" value="{{ isset($productData->price) && !empty($productData->price) ? $productData->price : 0 }}" onkeypress="return isNumberKey(event,this)" placeholder="Price">
 				</div>
 
 				<div class="form-group col-md-4 col-sm-6">
@@ -168,12 +169,12 @@
 
 				<div class="form-group col-md-4 col-sm-6 div-quantity" style="{{ ($productData->is_variants == 1)? "display:none;" : '' }}">
 					<label class="required">Quantity</label>
-					<input type="text" name="quantity" id="quantity" class="form-control" value="{{ $productData->quantity }}" onkeypress="return isNumberKey(event,this)" placeholder="Quantity">
+					<input type="text" name="quantity" id="quantity" class="form-control required" value="{{ $productData->quantity }}" onkeypress="return isNumberKey(event,this)" placeholder="Quantity">
 				</div>
 
 				<div class="form-group col-md-4 col-sm-6">
 					<label class="required">Select Category</label>
-					<select class="form-control select2" style="width: 100%;" data-placeholder="Select category" name="category[]" multiple="multiple">
+					<select class="form-control select2 required" style="width: 100%;" data-placeholder="Select category" name="category[]" multiple="multiple">
 						@foreach($categoryData as $data)
 						<option value="{{ $data->id }}"
 							{{ $productData->categories->contains('id', $data->id) ? 'selected' : '' }}>
@@ -192,12 +193,12 @@
 
 				<div class="form-group col-md-12 col-sm-12">
 					<label class="required">Short Description</label>
-					<textarea class="form-control" name="short_description" placeholder="Short Description">{{ $productData->short_description }}</textarea>
+					<textarea class="form-control required" name="short_description" placeholder="Short Description">{{ $productData->short_description }}</textarea>
 				</div>
 
 				<div class="form-group col-md-12 col-sm-12">
 					<label class="required">Description</label>
-					<textarea class="form-control" name="description" id="description">{{ isset($productData->description) && !empty($productData->description) ? $productData->description : '' }}</textarea>
+					<textarea class="form-control required" name="description" id="description">{{ isset($productData->description) && !empty($productData->description) ? $productData->description : '' }}</textarea>
 				</div>
 
 				<div class="custom-control custom-checkbox col-md-12 col-sm-12">
@@ -207,7 +208,7 @@
 
 				<div class="form-group col-md-6 col-sm-6 mt-3 show_featured" style="{{ $productData->is_featured != '1' ? 'display:none;' : '' }}">
 					<label class="required">Featured End Date</label>
-					<input type="date" class="form-control" name="featured_date" id="featured_date" value="{{ date_format(date_create($productData->featured_date), 'Y-m-d')  }}" Placeholder="Featured Date">
+					<input type="date" class="form-control required" name="featured_date" id="featured_date" value="{{ date_format(date_create($productData->featured_date), 'Y-m-d')  }}" Placeholder="Featured Date">
 				</div>
 
 				<div class="custom-control custom-checkbox col-md-12 col-sm-12">
@@ -217,7 +218,7 @@
 
 				<div class="form-group col-md-6 col-sm-12 mt-3 show_replacement" style="{{ $productData->is_replacement != '1' ? 'display:none;' : '' }}">
 					<label class="required">Replacement Days</label>
-					<input type="text" class="form-control" name="replacement_days" id="replacement_days" value="{{ isset($productData->replacement_days) && !empty($productData->replacement_days) ? $productData->replacement_days : '' }}" Placeholder="Enter Replacement Days" onkeypress="return isNumberKey(event,this)">
+					<input type="text" class="form-control required" name="replacement_days" id="replacement_days" value="{{ isset($productData->replacement_days) && !empty($productData->replacement_days) ? $productData->replacement_days : '' }}" Placeholder="Enter Replacement Days" onkeypress="return isNumberKey(event,this)">
 				</div>
 
 				<div class="custom-control custom-checkbox col-md-12 col-sm-12">
@@ -231,21 +232,21 @@
 							<label>IGST (%)</label>
 						</div>
 						<div class="col-md-3 mt-2">
-							<input type="text" class="form-control txt_taxes" name="igst" id="igst" onkeypress="return isNumberKey(event,this)" value="{{ isset($productData->igst) && !empty($productData->igst) ? $productData->igst : '' }}">
+							<input type="text" class="form-control txt_taxes required" name="igst" id="igst" onkeypress="return isNumberKey(event,this)" value="{{ isset($productData->igst) && !empty($productData->igst) ? $productData->igst : '' }}">
 						</div>
 
 						<div class="col-md-1 mt-2">
 							<label>CGST (%)</label>
 						</div>
 						<div class="col-md-3 mt-2">
-							<input type="text" class="form-control txt_taxes" name="cgst" id="cgst" onkeypress="return isNumberKey(event,this)" value="{{ isset($productData->cgst) && !empty($productData->cgst) ? $productData->cgst : '' }}">
+							<input type="text" class="form-control txt_taxes required" name="cgst" id="cgst" onkeypress="return isNumberKey(event,this)" value="{{ isset($productData->cgst) && !empty($productData->cgst) ? $productData->cgst : '' }}">
 						</div>
 
 						<div class="col-md-1 mt-2">
 							<label>SGST (%)</label>
 						</div>
 						<div class="col-md-3 mt-2">
-							<input type="text" class="form-control txt_taxes" name="sgst" id="sgst" onkeypress="return isNumberKey(event,this)" value="{{ isset($productData->sgst) && !empty($productData->sgst) ? $productData->sgst : '' }}">
+							<input type="text" class="form-control txt_taxes required" name="sgst" id="sgst" onkeypress="return isNumberKey(event,this)" value="{{ isset($productData->sgst) && !empty($productData->sgst) ? $productData->sgst : '' }}">
 						</div>
 					</div>
 				</div>
@@ -256,19 +257,24 @@
 
 				<div class="form-group col-md-6 col-sm-6">
 					<label class="required">SEO Description</label>
-					<textarea class="form-control" name="SEO_description" placeholder="SEO Description">{{ $productData->SEO_description }}</textarea>
+					<textarea class="form-control required" name="SEO_description" placeholder="SEO Description">{{ $productData->SEO_description }}</textarea>
 				</div>
 
 				<div class="form-group col-md-6 col-sm-6">
 					<label class="required">SEO Tags (,)</label>
-					<textarea class="form-control" name="SEO_tags" placeholder="SEO Tags">{{ $productData->SEO_tags }}</textarea>
+					<textarea class="form-control required" name="SEO_tags" placeholder="SEO Tags">{{ $productData->SEO_tags }}</textarea>
 				</div>
 
 			</div>
 			<div class="card-footer">
-				<input type="submit" class="btn btn-primary btn_action submit_button" value="Submit">
-				<a href="{{ route('product.index') }}" class="btn btn-secondary btn_action">Cancel</a>
-				<a href="javascript:;" class="btn btn-primary loading" style="display:none;">Edit....</a>
+				<div class="col-sm-12 text-right">
+					<button class="btn btn-danger" type="button" onclick="history.back()">Back</button>
+					<button class="btn btn-primary btn_action" type="submit">
+						<span id="loader" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+						<span id="buttonText">Submit</span>
+					</button>
+
+				</div>
 			</div>
 			@else
 			<div class="card-body">
@@ -356,46 +362,7 @@
 			height: 200
 		});
 
-		$("#updateform").on('submit', (function(e) {
-			e.preventDefault();
-
-			$.ajax({
-				url: this.action,
-				type: "POST",
-				data: new FormData(this),
-				dataType: "json",
-				headers: {
-					'X-CSRF-TOKEN': "{{ csrf_token() }}"
-				},
-				contentType: false,
-				cache: false,
-				processData: false,
-				beforeSend: function() {
-					$('.btn_action').hide();
-					$('.loading').show();
-				},
-				success: function(result) {
-					//console.log(data);
-
-					if (result.success) {
-						toastr.success(result.message);
-						setTimeout(function() {
-							window.location.href = result.redirect
-						}, 1000);
-					} else {
-						toastr.error(result.message);
-						$('.btn_action').show();
-						$('.loading').hide();
-					}
-				},
-				error: function(e) {
-					toastr.error('Somthing Wrong');
-					console.log(e);
-					$('.btn_action').show();
-					$('.loading').hide();
-				}
-			});
-		}));
+		
 
 		$("input[id='images']").change(function() {
 			var fileUpload = $("input[id='images']");

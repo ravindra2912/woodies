@@ -5,6 +5,8 @@
 <script src="{{ asset('admin_theme/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('admin_theme/dist/js/adminlte.js') }}"></script>
 
+<script src="{{ asset('ajax/ajax.js') }}"></script>
+
 <script type="text/javascript">
   setTimeout(function() {
     $(".flashMsg").fadeOut("fast");

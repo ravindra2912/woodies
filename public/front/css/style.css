@@ -4,9 +4,9 @@
 	--boxshadow: #dbd8d8; */
 
 	--primary: #DC3545;
-  --secondary: #FFECF1; 
-  --boxshadow: #FFECF1; 
- 
+	--secondary: #FFECF1;
+	--boxshadow: #FFECF1;
+
 }
 
 
@@ -37,7 +37,10 @@ body {
 	background: var(--primary);
 }
 
-a, a:hover{
+
+
+a,
+a:hover {
 	color: #000;
 	text-decoration: unset;
 }
@@ -297,9 +300,28 @@ section {
 .object-cover {
 	object-fit: cover;
 	width: 100%;
-  }
+}
 
 /******* navigation start **************/
+.navbar-brand img {
+	height: 60px;
+	width: auto;
+	object-fit: contain;
+}
+
+.footerlogo {
+	height: 80px;
+	width: auto;
+	object-fit: contain;
+}
+
+@media only screen and (max-width: 991px) { 
+	.navbar-brand{ padding: 0px; }
+	.navbar-brand img {
+		height: 45px;
+	}
+}
+
 @media (max-width: 991px) {
 	.navbar-collapse {
 		padding-top: 15px;
@@ -321,7 +343,7 @@ section {
 }
 
 .navbar {
-	padding: .5rem 2rem;
+	padding: .1rem 2rem;
 	box-shadow: 0px -3px 10px 0px gray;
 }
 
@@ -541,7 +563,7 @@ nav .search-icon,
 	#home-slider .carousel-inner {
 		position: unset;
 	}
-	
+
 	#home-slider .carousel-item {
 		position: unset;
 	}
@@ -570,7 +592,7 @@ nav .search-icon,
 	height: 450px;
 	width: 100% !important;
 	object-fit: unset !important;
-    border-radius: 30px;
+	border-radius: 30px;
 	object-fit: contain;
 }
 
@@ -641,15 +663,15 @@ nav .search-icon,
 	opacity: 1;
 }
 
-#home-category{
-	img{
+#home-category {
+	img {
 		height: 300px;
 		width: 100%;
 		object-fit: cover;
 	}
 
 	@media only screen and (max-width: 600px) {
-		img{
+		img {
 			height: 150px;
 		}
 	}
@@ -957,6 +979,7 @@ nav .search-icon,
 	#offer-grid .offer-box {
 		position: unset;
 	}
+
 	#offer-grid .offer-box .offer-contant {
 		position: unset;
 	}
@@ -1129,8 +1152,8 @@ nav .search-icon,
 
 	.p-img {
 		max-height: 220px;
-        object-fit: contain;
-        width: 80px;
+		object-fit: contain;
+		width: 80px;
 	}
 }
 

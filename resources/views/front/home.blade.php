@@ -51,7 +51,7 @@
 				<h4 class="font-weight-bold">Category</h4>
 			</div>
 			@foreach ($categoty as $cat)
-			<a href="{{ route('Products') }}?category={{ $cat->slug }}" class="col-lg-3 col-md-2 col-6 text-center ">
+			<a href="{{ route('Products') }}?category={{ $cat->slug }}" class="col-lg-3 col-md-4 col-6 text-center ">
 				<img src="{{ $cat->image_url }}" alt="{{ $cat->name }}" class="rounded cat-img" />
 				<label class="pt-1">{{ $cat->name }}</label>
 			</a>

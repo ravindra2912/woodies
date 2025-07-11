@@ -35,7 +35,7 @@ class CommonController extends Controller
 		
 		$Category = Category::Where('name', 'like', '%' . $request->text . '%')->take(5)->whereNull('deleted_at')->get();
 		$limite = $limite - count($Category);
-		$Product = Product::Where('name', 'like', '%' . $request->text . '%')->take($limite)->whereNull('deleted_at')->get();
+		$Product = Product::Where('name', 'like', '%' . $request->text . '%')->take($limite)->where('status', 'Active')->get();
 		$Product = $Category->merge($Product);
 		
 		

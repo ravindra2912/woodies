@@ -127,6 +127,10 @@ class ProductController extends Controller
 	{
 		$product = Product::with(['categories', 'images_data'])->where('slug', $slug)->first();
 
+		if($product &&$product->status != 'Active'){
+			exit('Product is not available');
+		}
+
 		//check stock available
 		$product->stock = 0;
 		if ($product->is_variants == 1) {

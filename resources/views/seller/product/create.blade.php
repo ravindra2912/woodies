@@ -37,24 +37,25 @@
   <section class="content">
     <div class="container-fluid">
 
-      <form action="{{ route('product.store') }}" id="addform" class="card card-primary">
-        <div class="card-header">
+      <form action="{{ route('product.store') }}" id="addproductform" class="card card-primary formaction" data-action="redirect" >
+      @csrf  
+      <div class="card-header">
           <h3 class="card-title">Add Product</h3>
         </div>
         <div class="card-body row">
           <div class="form-group col-md-4 col-sm-6">
             <label class="required">Product Name</label>
-            <input type="text" name="product_name" id="product_name" class="form-control" placeholder="Product Name">
+            <input type="text" name="product_name" id="product_name" class="form-control required" placeholder="Product Name">
           </div>
 
           <div class="form-group col-md-4 col-sm-6">
-            <label class="required">Brand</label>
+            <label >Brand</label>
             <input type="text" name="brand" id="brand" class="form-control" placeholder="Brand">
           </div>
 
           <div class="form-group col-md-4 col-sm-6">
             <label class="required">Price</label>
-            <input type="text" name="price" id="price" class="form-control" onkeypress="return isNumberKey(event,this)" placeholder="Price">
+            <input type="text" name="price" id="price" class="form-control required" onkeypress="return isNumberKey(event,this)" placeholder="Price">
           </div>
 
           <div class="form-group col-md-4 col-sm-6">
@@ -68,12 +69,12 @@
 
           <div class="form-group col-md-4 col-sm-6 div-quantity">
             <label class="required">Quantity</label>
-            <input type="text" name="quantity" id="quantity" class="form-control" onkeypress="return isNumberKey(event,this)" placeholder="Quantity">
+            <input type="text" name="quantity" id="quantity" class="form-control required" onkeypress="return isNumberKey(event,this)" placeholder="Quantity">
           </div>
 
           <div class="form-group col-md-4 col-sm-6">
             <label class="required">Select Category</label>
-            <select class="form-control select2" style="width: 100%;" data-placeholder="Select category" name="category[]" multiple="multiple">
+            <select class="form-control select2 required" style="width: 100%;" data-placeholder="Select category" name="category[]" multiple="multiple">
               @if(isset($categoryData) && !empty($categoryData))
               @foreach($categoryData as $data)
               <option value="{{ $data->id }}">{{ ucwords($data->name) }}</option>
@@ -84,12 +85,12 @@
 
           <div class="form-group col-md-12 col-sm-12">
             <label class="required">Short Description</label>
-            <textarea class="form-control" name="short_description" placeholder="Short Description"></textarea>
+            <textarea class="form-control required" name="short_description" placeholder="Short Description"></textarea>
           </div>
 
           <div class="form-group col-md-12 col-sm-12">
             <label class="required">Description</label>
-            <textarea class="form-control" name="description" id="description" placeholder="Description"></textarea>
+            <textarea class="form-control required" name="description" id="description" placeholder="Description"></textarea>
           </div>
 
           <div class="custom-control custom-checkbox col-md-3 col-sm-12">
@@ -99,7 +100,7 @@
 
           <div class="form-group col-md-3 col-sm-6 show_replacement" style="display:none;">
             <label class="required">Replacement Days</label>
-            <input type="text" class="form-control txt_taxes" name="replacement_days" id="replacement_days" Placeholder="Enter Replacement Days" onkeypress="return isNumberKey(event,this)">
+            <input type="text" class="form-control txt_taxes required" name="replacement_days" id="replacement_days" Placeholder="Enter Replacement Days" onkeypress="return isNumberKey(event,this)">
           </div>
 
 
@@ -115,21 +116,21 @@
                 <label>IGST (%)</label>
               </div>
               <div class="col-md-3 mt-2">
-                <input type="text" class="form-control txt_taxes" name="igst" id="igst" onkeypress="return isNumberKey(event,this)">
+                <input type="text" class="form-control txt_taxes required" name="igst" id="igst" onkeypress="return isNumberKey(event,this)">
               </div>
 
               <div class="col-md-1 mt-2">
                 <label>CGST (%)</label>
               </div>
               <div class="col-md-3 mt-2">
-                <input type="text" class="form-control txt_taxes" name="cgst" id="cgst" onkeypress="return isNumberKey(event,this)">
+                <input type="text" class="form-control txt_taxes required" name="cgst" id="cgst" onkeypress="return isNumberKey(event,this)">
               </div>
 
               <div class="col-md-1 mt-2">
                 <label>SGST (%)</label>
               </div>
               <div class="col-md-3 mt-2">
-                <input type="text" class="form-control txt_taxes" name="sgst" id="sgst" onkeypress="return isNumberKey(event,this)">
+                <input type="text" class="form-control txt_taxes required" name="sgst" id="sgst" onkeypress="return isNumberKey(event,this)">
               </div>
             </div>
           </div>
@@ -141,19 +142,24 @@
 
           <div class="form-group col-md-6 col-sm-6">
             <label class="required">SEO Description</label>
-            <textarea class="form-control" name="SEO_description" placeholder="SEO Description"></textarea>
+            <textarea class="form-control required" name="SEO_description" placeholder="SEO Description"></textarea>
           </div>
 
           <div class="form-group col-md-6 col-sm-6">
             <label class="required">SEO Tags (,)</label>
-            <textarea class="form-control" name="SEO_tags" placeholder="SEO Tags"></textarea>
+            <textarea class="form-control required" name="SEO_tags" placeholder="SEO Tags"></textarea>
           </div>
 
         </div>
         <div class="card-footer">
-          <input type="submit" class="btn btn-primary btn_action submit_button" value="Submit">
-          <a href="{{ route('product.index') }}" class="btn btn-secondary btn_action">Cancel</a>
-          <a href="javascript:;" class="btn btn-primary loading" style="display:none;">Adding....</a>
+          <div class="col-sm-12 text-right">
+              <button class="btn btn-danger" type="button" onclick="history.back()">Back</button>
+              <button class="btn btn-primary btn_action" type="submit">
+                <span id="loader" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                <span id="buttonText">Submit</span>
+              </button>
+
+            </div>
         </div>
       </form>
     </div>
@@ -221,48 +227,6 @@
         $('.div-quantity').hide();
       }
     });
-
-
-    $("#addform").on('submit', (function(e) {
-      e.preventDefault();
-
-      $.ajax({
-        url: this.action,
-        type: "POST",
-        data: new FormData(this),
-        dataType: "json",
-        headers: {
-          'X-CSRF-TOKEN': "{{ csrf_token() }}"
-        },
-        contentType: false,
-        cache: false,
-        processData: false,
-        beforeSend: function() {
-          $('.btn_action').hide();
-          $('.loading').show();
-        },
-        success: function(result) {
-          //console.log(data);
-
-          if (result.success) {
-            toastr.success(result.message);
-            setTimeout(function() {
-              window.location.href = result.redirect
-            }, 1000);
-          } else {
-            toastr.error(result.message);
-            $('.btn_action').show();
-            $('.loading').hide();
-          }
-        },
-        error: function(e) {
-          toastr.error('Somthing Wrong');
-          console.log(e);
-          $('.btn_action').show();
-          $('.loading').hide();
-        }
-      });
-    }));
 
 
   });

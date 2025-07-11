@@ -171,9 +171,8 @@
 		})
 	})
 
-
 	// Display sweet alert while deleting
-	$(".deleteBtn").click(function() {
+	function deleteProduct(id) {
 		Swal.fire({
 				title: 'Are you sure?',
 				icon: 'error',
@@ -185,10 +184,11 @@
 			})
 			.then((result) => {
 				if (result.isConfirmed) {
-					$(this).closest("form").submit();
+					$('#deleteForm' + id).submit();
 				}
 			})
-	});
+	}
+	
 
 	$("#importform").on('submit', (function(e) {
 		e.preventDefault();

@@ -6,7 +6,7 @@ return [
     "contactus_type" => ['Service & Support', 'Vendor Registration', 'Career', 'Become Our Dealer', 'Contact Details'],
 
     "site_setting" => [
-        "name" => "Qnex",
+        "name" => "woodies",
         "logo" => env('APP_URL') . '/front/images/logo.png',
         "small_logo" => env('APP_URL') . '/front/images/logo.png',
         "fevicon" => env('APP_URL') . '/front/images/fevicon.png',
