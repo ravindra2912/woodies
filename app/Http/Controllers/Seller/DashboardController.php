@@ -77,6 +77,7 @@ class DashboardController extends Controller
 		// Combine both using union
 		$low_qty_product = $lowVariantsQuery
 			->union($lowProductsQuery)
+			->orderBy('qty', 'asc')
 			->paginate(6, ['*'], 'low_qty');
 
 		$orderLists = Orders::with(['user_data'])
