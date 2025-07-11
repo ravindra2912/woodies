@@ -67,7 +67,7 @@ class ProductController extends Controller
 						$html .= '<a href="' . route('products_variants', $row->id) . '" class="btn btn-warning tableActionBtn editBtn ml-1" title="Product variants"><i class="right fas fa-sitemap"></i></a>';
 					}
 					$html .= '		<form action="' . route('product.destroy', $row->id) . '" id="deleteForm' . $row->id . '" method="post">
-										<input type="hidden" name="_token" value="'.csrf_token().'"> 
+										<input type="hidden" name="_token" value="' . csrf_token() . '"> 
     									<input type="hidden" name="_method" value="DELETE">
 										<button type="button" class="btn btn-danger tableActionBtn deleteBtn" onclick="deleteProduct(' . $row->id . ')" title="Delete Product"><i class="right fas fa-trash"></i></button>
 									</form>
@@ -791,9 +791,12 @@ class ProductController extends Controller
 			$Product_data = Product::select('id', 'name')
 				->whereHas('categories', function ($q) use ($request) {
 					$q->where('category_id', $request->category); // Match category ID
-				})
-				->where('user_id', Auth::user()->id)
-				->where('status', 'Active')
+				});
+			if (Auth::user()->role_id != 1) {
+				$Product_data = $Product_data->where('user_id', Auth::user()->id);
+			}
+
+			$Product_data = $Product_data->where('status', 'Active')
 				->whereNull('deleted_at')
 				->orderBy('name', 'ASC')
 				->get();

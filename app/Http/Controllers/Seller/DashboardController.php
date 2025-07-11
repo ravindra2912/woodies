@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers\Seller;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Auth;
 use response;
-use App\Models\Category;
-use App\Models\SubCategory;
-use App\Models\Product;
 use App\Models\Coupon;
 use App\Models\Orders;
+use App\Models\Product;
+use App\Models\Category;
+use App\Models\SubCategory;
+use Illuminate\Http\Request;
 use App\Models\ProductVariants;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 
 class DashboardController extends Controller
 {
@@ -20,26 +21,62 @@ class DashboardController extends Controller
 		$total_category_count = Category::whereNull('deleted_at')
 			->count();
 
-		$total_product_count = Product::where('user_id', Auth::user()->id)
+		$total_product_count = Product::query();
+		if (Auth::user()->role_id != 1) {
+			$total_product_count = $total_product_count->where('user_id', Auth::user()->id);
+		}
+		$total_product_count = $total_product_count->count();
 
-			->count();
+		$total_Coupon_count = Coupon::query();
+		if (Auth::user()->role_id != 1) {
+			$total_Coupon_count = $total_Coupon_count->where('user_id', Auth::user()->id);
+		}
+		$total_Coupon_count = $total_Coupon_count->count();
 
-		$total_Coupon_count = Coupon::where('user_id', Auth::user()->id)
-			//
-			->count();
-
-		$total_Orders_count = Orders::where('user_id', Auth::user()->id)
-			//
-			->count();
+		$total_Orders_count = Orders::query();
+		if (Auth::user()->role_id != 1) {
+			$total_Orders_count = $total_Orders_count->where('user_id', Auth::user()->id);
+		}
+		$total_Orders_count = $total_Orders_count->count();
 
 		//low qty products
-		$low_qty_product = ProductVariants::select('product_variants.*')
-			->with(['product_data'])
-			->Join('products', 'products.id', '=', 'product_variants.product_id', 'right')
-			->where('product_variants.user_id', Auth::user()->id)
-			->where('product_variants.status', 1)
-			->whereRaw('product_variants.qty <= product_variants.alert_qty')
-			//->groupBy('product_id')
+		$lowVariantsQuery = ProductVariants::select(
+			'product_variants.product_id',
+			'products.name',
+			'product_variants.variants',
+			'product_variants.alert_qty',
+			'product_variants.qty',
+			'product_variants.amount',
+			DB::raw("'variants' as type")
+		)
+			->Join('products', 'products.id', '=', 'product_variants.product_id', 'right');
+		if (Auth::user()->role_id != 1) {
+			$lowVariantsQuery = $lowVariantsQuery->where('product_variants.user_id', Auth::user()->id);
+		}
+		$lowVariantsQuery = $lowVariantsQuery->where('product_variants.status', 1)
+			->whereRaw('product_variants.qty <= product_variants.alert_qty');
+		//->groupBy('product_id')
+		// ->paginate(6, ['*'], 'low_qty');
+
+		// Second query: products with qty < 5
+		$lowProductsQuery = Product::selectRaw('
+				products.id AS product_id,
+				products.name AS name,
+				NULL AS variants,
+				NULL AS alert_qty, 
+				products.quantity AS qty,
+				products.price AS amount,
+				"product" as type
+			')
+			->where('products.quantity', '<', 5);
+
+		if (Auth::user()->role_id != 1) {
+			$lowProductsQuery->where('user_id', Auth::id());
+		}
+
+		// Combine both using union
+		$low_qty_product = $lowVariantsQuery
+			->union($lowProductsQuery)
 			->paginate(6, ['*'], 'low_qty');
 
 		$orderLists = Orders::with(['user_data'])

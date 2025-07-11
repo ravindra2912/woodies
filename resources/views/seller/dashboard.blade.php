@@ -48,7 +48,7 @@
 						<div class="icon">
 							<i class="ion ion-stats-bars"></i>
 						</div>
-						<a href="{{ route('product.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+						<a href="{{ route('coupons.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
 					</div>
 				</div>
 
@@ -61,7 +61,7 @@
 						<div class="icon">
 							<i class="ion ion-stats-bars"></i>
 						</div>
-						<a href="{{ route('product.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+						<a href="{{ route('Order.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
 					</div>
 				</div>
 
@@ -103,14 +103,21 @@
 										</td>
 										<td>
 											<!-- img src="dist/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2" -->
-											{{ (isset($lqp->product_data) && !empty($lqp->product_data))?$lqp->product_data->name : '' }}
+											{{ $lqp->name }}
 										</td>
-										<td class="text-danger">{{ $lqp->amount }}</td>
+										<td class="text-danger">Rs. {{ $lqp->amount }}</td>
 										<td class="text-danger">{{ $lqp->qty }}</td>
 										<td>
+											@if ($lqp->type == 'product')
 											<a href="{{ route('product.edit',$lqp->product_id) }}" class="text-muted">
 												<i class="fas fa-share-square"></i>
 											</a>
+											@else
+											<a href="{{ route('products_variants',$lqp->product_id) }}" class="text-muted">
+												<i class="fas fa-share-square"></i>
+											</a>
+											@endif
+
 										</td>
 									</tr>
 									@endforeach

@@ -319,7 +319,7 @@
 					<!-- <div class="m-show float-right mb-3">
 						<button id="filter-btn" class="btn btn-primary" type="button" data-toggle="collapse" data-target="#mobile-filter" aria-expanded="false" aria-controls="mobile-filter">Filters<span class="fa fa-filter pl-1"></span></button>
 					</div> -->
-					<div class="float-right">
+					<div class="float-right sorting d-none">
 						<span>Sort By
 							<select class="sort-select data-sort" id="sortby">
 								<option value="0">Default Sorting</option>
@@ -343,6 +343,10 @@
 								<span class="visually-hidden"></span>
 							</div>
 						</div>
+					</div>
+					<div id="productNotFound" class="text-center d-none">
+						<p class="h3">Product not found!</p>
+
 					</div>
 					<div id="scroll-sentinel"></div>
 				</div>
@@ -417,6 +421,14 @@
 						$('#product_data').append(result.data);
 						if(page > 0 && result.data.trim() == ''){
 							dataEmpty = true;
+						}
+
+						if(page == 0 && result.data.trim() == ''){
+							$('#productNotFound').removeClass('d-none');
+							$('.sorting').addClass('d-none');
+						} else {
+							$('#productNotFound').addClass('d-none');
+							$('.sorting').removeClass('d-none');
 						}
 						page += 1;
 					} else {
