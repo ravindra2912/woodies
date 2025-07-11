@@ -192,7 +192,7 @@
 								@foreach($order->seller_order_items_data as $items)
 									<tr>
 										<td>{{ ucfirst($items->product_name)}}</td>
-										<td width="15%">$ {{ ucfirst($items->product_price)}}</td>
+										<td width="15%">Rs. {{ ucfirst($items->product_price)}}</td>
 										<td width="10%">{{ ucfirst($items->quantity)}}</td>
 									</tr>
 								@endforeach
@@ -212,31 +212,31 @@
 									<tr>
 										<td>SubTotal</td>
 										<td>:</td>
-										<td>$ {{ $order->subtotal}}</td>
+										<td>Rs. {{ $order->subtotal}}</td>
 									</tr>
 									
 									<tr>
 										<td>Shipping</td>
 										<td>:</td>
-										<td>$ {{ $order->shipping}}</td>
+										<td>Rs. {{ $order->shipping}}</td>
 									</tr>
 									
 									<tr>
 										<td>Discount</td>
 										<td>:</td>
-										<td>$ {{ $order->discount}}</td>
+										<td>Rs. {{ $order->discount}}</td>
 									</tr>
 									
 									<tr>
 										<td>Tax</td>
 										<td>:</td>
-										<td>$ {{ $order->tax}}</td>
+										<td>Rs. {{ $order->tax}}</td>
 									</tr>
 									
 									<tr>
 										<td>Total</td>
 										<td>:</td>
-										<td>$ {{ $order->total}}</td>
+										<td>Rs. {{ $order->total}}</td>
 									</tr>
 									
 								</table>

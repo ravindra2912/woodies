@@ -167,7 +167,7 @@
 							<span>{{ $val->review_count }} Reviews</span>
 						</div>
 						<h4>{{ $val->name }}</h4>
-						<p>$ {{ $val->price }}</p>
+						<p>Rs. {{ $val->price }}</p>
 
 						<div class="d-flex  float-left mt-2">
 							<p class="badges bg-danger"></p>
@@ -367,7 +367,7 @@
 							<span>{{ $val->review_count }} Reviews</span>
 						</div>
 						<h4>{{ $val->name }}</h4>
-						<p>$ {{ $val->price }}</p>
+						<p>Rs. {{ $val->price }}</p>
 
 						<div class="d-flex  float-left mt-2">
 							<p class="badges bg-danger"></p>

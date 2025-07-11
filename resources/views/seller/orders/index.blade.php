@@ -194,7 +194,7 @@
 									<td> {{ $i++ }}  </td>
 									<td>{{ (isset($ordertList->user_data) && !empty($ordertList->user_data))?ucfirst($ordertList->user_data->first_name) :''}}</td>
 									<td>{{ $ordertList->contact }}</td>
-									<td>$ {{ $ordertList->total }}</td>
+									<td>Rs. {{ $ordertList->total }}</td>
 									<td>{{ get_date($ordertList->created_at) }}</td>
 									<td class="text-center"><div class="{{ $status_style }}" >{{ $status }}</div></td>
 									<td class="text-center">
