@@ -49,6 +49,7 @@
 			<a href="{{ url('/products') }}" class="{{ (request()->is('products')) ? 'active' : '' }}" aria-label="Shop"><i class="fas fa-store-alt" ></i><span> Shop</span></a>
 			<!-- <a href="{{ url('/collections') }}" class="{{ (request()->is('collections')) ? 'active' : '' }}" aria-label="Collections"><i class="fas fa-list-ul" style="font-size:25px"></i><span> Collections</span></a> -->
 			@if(Auth::check())
+				<a href="{{ route('account.order') }}" class="{{ (request()->is('account/order')) ? 'active' : '' }}" aria-label="account"><i class="fa-solid fa-box" ></i><span> Orders</span></a>
 				<a href="{{ url('/account') }}" class="{{ (request()->is('account')) ? 'active' : '' }}" aria-label="account"><i class="fa-solid fa-user" ></i><span> Account</span></a>
 			@else
 				<a href="#" data-toggle="modal" data-target="#authmodal" aria-label="account"><i class="fa-solid fa-user" style="font-size:25px"></i><span> Login</span></a>

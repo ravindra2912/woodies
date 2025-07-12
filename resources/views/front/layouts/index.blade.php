@@ -400,23 +400,10 @@
 						<a href="#!"><i class="fa-regular fa-building pr-1"></i> {{ config('const.footer.contact.address') }} </a>
 					</li>
 					<li class="mb-3">
-						<a href="tel:+919510951504" class="mr-1">
-							<i class="fa-regular fa-id-badge pr-1"></i>
-							+91 9510951504,
-						</a>
-						
-						<a href="tel:+918128121857">
-							+91 8128121857
-						</a>
-						<br/>
-						<a href="tel:+919879877706" class="ml-3">
-						<strong>Help Line Number : </strong> +91 9879877706
-						</a>
-						
-						<!-- <a href="tel:+91{{ config('const.contact.contact') }}">
+						<a href="tel:+91{{ config('const.contact.contact') }}">
 							<i class="fa-regular fa-id-badge pr-1"></i>
 							+91 {{ config('const.footer.contact.contact') }}
-						</a> -->
+						</a>
 					</li>
 					<li class="mb-3">
 						<a href="mailto:{{ config('const.contact.email') }}"><i class="fa-regular fa-envelope pr-1"></i> {{ config('const.footer.contact.email') }}</a>

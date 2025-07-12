@@ -33,32 +33,17 @@
 		<div class="row mt-5">
 			<div class="col-lg-5 col-md-5 col-12">
 				<div class="row mb-4 mt-5">
-					<div class="col-lg-2 col-md-2 col-4 align-self-center">
-					</div>
-					<div class="col-lg-10 col-md-10 col-8">
+					<div class="col-12">
 						<p class="font-weight-bold mb-1 h5">Address</p>
 						<p class="mb-0">{{ config('const.footer.contact.address') }}</p>
 					</div>
 				</div>
 				<div class="row mb-4">
-					<div class="col-lg-2 col-md-2 col-4 align-self-center">
-					</div>
-					<div class="col-lg-10 col-md-10 col-8">
+					
+					<div class="col-12">
 						<p class="font-weight-bold mb-1 h5">Contact</p>
-						<!-- <p class="mb-0">Phone: {{ config('const.footer.contact.contact') }}</p> -->
+						<p class="mb-0">Phone: {{ config('const.footer.contact.contact') }}</p>
 						<p class="mb-0">Email: {{ config('const.footer.contact.email') }}</p>
-						<p class="mb-0">Phone: <a href="tel:+919510951504" class="mr-1 text-dark">
-								+91 9510951504,
-							</a>
-							<a href="tel:+918128121857" class="text-dark">
-								+91 8128121857
-							</a>
-							<br />
-							<a href="tel:+919879877706" class="text-dark">
-								<strong>Help Line Number : </strong> +91 9879877706
-							</a>
-						</p>
-
 					</div>
 				</div>
 

@@ -16,12 +16,12 @@ return [
 
     "footer" => [
         "logo" => env('APP_URL') . '/front/images/logo.png',
-        'description' => 'Qnex has been a leading Wholesaler, Manufacturer and Importer of high-quality air conditioner (AC) spare parts since 2012.',
+        'description' => 'Woodieo proudly offers some of the most popular and trusted wood products from Mahuva city, known for their superior quality and craftsmanship. Our locally sourced materials reflect the rich woodworking tradition of the region and are favored by builders, designers, and manufacturers alike.',
         "contact" => [
-            "address" => "Office No 3-4 (1st Floor) Madhav Park, Opp. Tirupati Balaji Complex, Near Maruti Chowk, L. H. Road, Hirabaugh, Surat, Gujarat 395006",
-            "contact" => '9879877706',
-            "email" => 'salesqnex@gmail.com',
-            "map" => 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3719.5198746527763!2d72.8639358!3d21.211223800000003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be04f0d77f6ffff%3A0x6a0ca367a5d1d697!2sQnex!5e0!3m2!1sen!2sin!4v1739983636300!5m2!1sen!2sin',
+            "address" => "13, Harbhole, B/H Ramji temple, bhavani Temple Road, Khargate, Mahuva, Gujarat 364290",
+            "contact" => '8306426026',
+            "email" => 'woodieo@gmail.com',
+            "map" => 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d943.3080403723825!2d71.772304611687!3d21.083915262972695!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be22508a0064fd5%3A0xa46df4ef460e20e4!2sJagannath%20mandir!5e0!3m2!1sen!2sin!4v1752309958454!5m2!1sen!2sin',
         ],
     ],
 

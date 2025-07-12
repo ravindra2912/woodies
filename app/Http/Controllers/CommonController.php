@@ -41,7 +41,7 @@ class CommonController extends Controller
 		
 		if(isset($Product) && !empty($Product) && count($Product) > 0 && !empty($request->text)){
 			foreach($Product as $val){
-				$url = url('/collections/'.$val->slug);
+				$url = url('/products?category='.$val->slug);
 				if($val->getTable() == 'products'){
 					$url = url('/products/'.$val->slug);
 				}
