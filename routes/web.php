@@ -117,7 +117,7 @@ Route::get('/email/order/{id}', [App\Http\Controllers\EmailsController::class, '
 Route::get('sitemap.xml', [App\Http\Controllers\SitemapController::class, 'index']);
 
 
-Route::prefix('seller')->middleware(['auth'])->group(function() {
+Route::prefix('seller')->middleware(['auth', 'IsSeller'])->group(function() {
 	
 	Route::middleware(['IsAdmin'])->group(function(){
        // Category

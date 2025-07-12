@@ -466,8 +466,12 @@ class ProductController extends Controller
 
 	public function products_variants(Request $request, $id)
 	{
+		$user = Auth::user();
+		$isAdmin = $user->role_id == 1;
 		$productData = Product::where('id', $id)
-			->where('user_id', Auth::user()->id)
+			->when(!$isAdmin, function ($query) use ($user) {
+				$query->where('user_id', $user->id);
+			})
 
 			->first();
 

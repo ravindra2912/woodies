@@ -18,26 +18,26 @@ class DashboardController extends Controller
 {
 	public function index()
 	{
-		$total_category_count = Category::whereNull('deleted_at')
-			->count();
+		$user = Auth::user();
+		$isAdmin = $user->role_id == 1;
 
-		$total_product_count = Product::query();
-		if (Auth::user()->role_id != 1) {
-			$total_product_count = $total_product_count->where('user_id', Auth::user()->id);
-		}
-		$total_product_count = $total_product_count->count();
+		// Total categories (soft delete check)
+		$total_category_count = Category::count();
 
-		$total_Coupon_count = Coupon::query();
-		if (Auth::user()->role_id != 1) {
-			$total_Coupon_count = $total_Coupon_count->where('user_id', Auth::user()->id);
-		}
-		$total_Coupon_count = $total_Coupon_count->count();
+		// Total products
+		$total_product_count = Product::when(!$isAdmin, function ($query) use ($user) {
+			$query->where('user_id', $user->id);
+		})->count();
 
-		$total_Orders_count = Orders::query();
-		if (Auth::user()->role_id != 1) {
-			$total_Orders_count = $total_Orders_count->where('user_id', Auth::user()->id);
-		}
-		$total_Orders_count = $total_Orders_count->count();
+		// Total coupons
+		$total_Coupon_count = Coupon::when(!$isAdmin, function ($query) use ($user) {
+			$query->where('user_id', $user->id);
+		})->count();
+
+		// Total orders
+		$total_Orders_count = Orders::when(!$isAdmin, function ($query) use ($user) {
+			$query->where('user_id', $user->id);
+		})->count();
 
 		//low qty products
 		$lowVariantsQuery = ProductVariants::select(
@@ -49,14 +49,12 @@ class DashboardController extends Controller
 			'product_variants.amount',
 			DB::raw("'variants' as type")
 		)
-			->Join('products', 'products.id', '=', 'product_variants.product_id', 'right');
-		if (Auth::user()->role_id != 1) {
-			$lowVariantsQuery = $lowVariantsQuery->where('product_variants.user_id', Auth::user()->id);
-		}
-		$lowVariantsQuery = $lowVariantsQuery->where('product_variants.status', 1)
+			->Join('products', 'products.id', '=', 'product_variants.product_id', 'right')
+			->when(!$isAdmin, function ($query) use ($user) {
+				$query->where('product_variants.user_id', $user->id);
+			})
+			->where('product_variants.status', 1)
 			->whereRaw('product_variants.qty <= product_variants.alert_qty');
-		//->groupBy('product_id')
-		// ->paginate(6, ['*'], 'low_qty');
 
 		// Second query: products with qty < 5
 		$lowProductsQuery = Product::selectRaw('
@@ -68,11 +66,10 @@ class DashboardController extends Controller
 				products.price AS amount,
 				"product" as type
 			')
-			->where('products.quantity', '<', 5);
-
-		if (Auth::user()->role_id != 1) {
-			$lowProductsQuery->where('user_id', Auth::id());
-		}
+			->where('products.quantity', '<', 5)
+			->when(!$isAdmin, function ($query) use ($user) {
+				$query->where('user_id', $user->id);
+			});
 
 		// Combine both using union
 		$low_qty_product = $lowVariantsQuery
@@ -80,9 +77,11 @@ class DashboardController extends Controller
 			->orderBy('qty', 'asc')
 			->paginate(6, ['*'], 'low_qty');
 
-		$orderLists = Orders::with(['user_data'])
-			//->where('user_id', Auth::user()->id)
-			->orderBy('created_at', 'desc')
+		$orderLists = Orders::with('user_data')
+			->when(!$isAdmin, function ($query) use ($user) {
+				$query->where('user_id', $user->id);
+			})
+			->orderByDesc('created_at')
 			->paginate(6, ['*'], 'orders');
 
 		return view('seller.dashboard', compact('total_category_count', 'total_product_count', 'total_Coupon_count', 'total_Orders_count', 'low_qty_product', 'orderLists'));

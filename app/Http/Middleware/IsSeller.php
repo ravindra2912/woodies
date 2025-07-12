@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class IsUser
+class IsSeller
 {
     /**
      * Handle an incoming request.
@@ -17,15 +17,12 @@ class IsUser
      */
     public function handle(Request $request, Closure $next)
     {
-		if(isset(Auth::user()->id) && !empty(Auth::user()->id)){
+		if(isset(Auth::user()->id) && !empty(Auth::user()->id) && Auth::user()->role_id != null){
             return $next($request);
         }
         else{
-            if($request->ajax()){
-                return response()->json(['success' => false, 'message' => 'Un-Authenticated Access', 'data' => array() ]);
-            }else{
-                return redirect()->route('home');
-            }
+            echo 'Unauthenticated Access';
+			die;
         }
     }
 }

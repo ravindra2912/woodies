@@ -14,6 +14,7 @@
 	<section class="content">
 		<div class="container-fluid">
 			<div class="row">
+				@if (Auth::user()->role_id == 1)
 				<div class="col-lg-3 col-6">
 					<div class="small-box bg-info">
 						<div class="inner">
@@ -26,6 +27,8 @@
 						<a href="{{ route('category.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
 					</div>
 				</div>
+				@endif
+
 				<div class="col-lg-3 col-6">
 					<div class="small-box bg-warning">
 						<div class="inner">
