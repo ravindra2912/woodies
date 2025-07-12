@@ -472,7 +472,6 @@ class ProductController extends Controller
 			->when(!$isAdmin, function ($query) use ($user) {
 				$query->where('user_id', $user->id);
 			})
-
 			->first();
 
 		$variants = ProductVariants::where('product_id', $id)->get();
