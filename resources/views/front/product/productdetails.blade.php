@@ -27,6 +27,15 @@
 		display: flex;
 		margin-top: 20px;
 		overflow: overlay;
+		scrollbar-width: none;
+		/* Firefox */
+		-ms-overflow-style: none;
+		/* Internet Explorer 10+ */
+	}
+
+	#product-detail .imgs::-webkit-scrollbar {
+		display: none;
+		/* Chrome, Safari, Edge */
 	}
 
 	#product-detail .imgs img {
@@ -147,6 +156,23 @@
 		object-fit: contain;
 		border-radius: 100%;
 	}
+
+	.share {
+		position: absolute;
+		top: 6px;
+		right: 25px;
+		border: 1px solid;
+		font-size: 20px;
+		border-radius: 100%;
+		padding: 6px 7px;
+	}
+
+	@media (max-width: 991px) {
+		#product-detail .imgs img {
+			height: 100px;
+		}
+
+	}
 </style>
 
 <!-- image zoom -->
@@ -225,19 +251,6 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-6 col-md-6 col-12 position-relative">
-
-				<!-- share -->
-				<style>
-					.share {
-						position: absolute;
-						top: 6px;
-						right: 25px;
-						border: 1px solid;
-						font-size: 20px;
-						border-radius: 100%;
-						padding: 6px 7px;
-					}
-				</style>
 
 				<i data-toggle="modal" data-target="#sharemodal" class="share fa-solid fa-share-alt"></i>
 
