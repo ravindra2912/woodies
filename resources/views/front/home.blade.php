@@ -120,7 +120,7 @@
 				<div class="new-product">
 					<div class="product-img">
 						<img loading="lazy" class="product__single" src="{{ getImage(isset($val->images_data[0])?$val->images_data[0]->image:'') }}" alt="{{ $val->name }}">
-						<img loading="lazy" class="secondary-img" src="{{ getImage(isset($val->images_data[1]) ? $val->images_data[1]->image:'') }}" alt="{{ $val->name }}">
+						<img loading="lazy" class="secondary-img" src="{{ getImage(isset($val->images_data[1]) ? $val->images_data[1]->image:(isset($val->images_data[0])?$val->images_data[0]->image:'')) }}" alt="{{ $val->name }}">
 
 					</div>
 					<div class="product-info text-center">
