@@ -23,6 +23,9 @@ class CreateProductsTable extends Migration
             $table->unsignedBigInteger('coupon_id')->nullable();
             $table->unsignedBigInteger('category_id')->nullable();
             $table->bigInteger('price')->default(0);
+            $table->bigInteger('original_price')->default(0);
+            $table->float('purchase_price', 10, 1)->default(0);
+            $table->float('margin', 10, 1)->default(0);
             $table->bigInteger('quantity')->default(0);
             $table->text('short_description')->nullable();
             $table->text('description')->nullable();

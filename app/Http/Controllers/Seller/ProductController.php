@@ -121,6 +121,9 @@ class ProductController extends Controller
 				'product_name' => 'required|max:256',
 				// 'brand' => 'required|max:256',
 				'price' => 'required|numeric|gt:0|between:1,9999999999.99',
+				'original_price' => 'required|numeric|gt:0|between:1,9999999999.99',
+				'purchase_price' => 'required|numeric|gt:0|between:1,9999999999.99',
+				'margin' => 'required|numeric|gt:0|between:1,9999999999.99',
 				'category' => 'required',
 				'short_description' => 'required|max:250',
 				'description' => 'required',
@@ -174,6 +177,9 @@ class ProductController extends Controller
 					$product->short_description = $request->short_description;
 					$product->slug = $slug;
 					$product->price = $request->price;
+					$product->original_price = $request->original_price;
+					$product->purchase_price = $request->purchase_price;
+					$product->margin = $request->margin;
 					$product->description = $request->description;
 					$product->SEO_description = $request->SEO_description;
 					$product->SEO_tags = $request->SEO_tags;
@@ -308,6 +314,9 @@ class ProductController extends Controller
 				'product_name' => 'required|max:256',
 				// 'brand' => 'required|max:256',
 				'price' => 'required|numeric|gt:0|between:1,9999999999.99',
+				'original_price' => 'required|numeric|gt:0|between:1,9999999999.99',
+				'purchase_price' => 'required|numeric|gt:0|between:1,9999999999.99',
+				'margin' => 'required|numeric|gt:0|between:1,9999999999.99',
 				'category' => 'required',
 				'short_description' => 'required|max:250',
 				'description' => 'required',
@@ -358,6 +367,9 @@ class ProductController extends Controller
 					$product->brand = $request->brand;
 					$product->short_description = $request->short_description;
 					$product->price = trim($request->price);
+					$product->original_price = $request->original_price;
+					$product->purchase_price = $request->purchase_price;
+					$product->margin = $request->margin;
 					$product->is_variants = $request->is_variants;
 					$product->description = $request->description;
 					$product->SEO_description = $request->SEO_description;

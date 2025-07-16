@@ -701,7 +701,7 @@ nav .search-icon,
 #service-info .service-box:hover {
 	background: var(--secondary);
 	box-shadow: unset;
-	color: var(--primary);
+	/* color: var(--primary); */
 }
 
 
@@ -758,6 +758,7 @@ nav .search-icon,
 .new-product:hover .product-img img {
 	transform: scale(1.1);
 }
+
 .new-product .product-info .product-description {
 	font-size: 16px;
 	color: #636363;
@@ -1450,3 +1451,60 @@ button.toast-close-button {
 }
 
 /******* toast end **************/
+/******* FAQ start **************/
+
+#faqs {
+	.accordion-section .panel-group {
+		border-top: 1px solid lightgray;
+	}
+
+	.accordion-section .panel-default {
+		border-bottom: 1px solid lightgray;
+	}
+
+	.accordion-section .panel-default .panel-title a {
+		display: block;
+		color: black;
+		font-weight: 600;
+		position: relative;
+		padding-left: 30px;
+	}
+
+	.accordion-section .panel-default .panel-title a::after {
+		font-family: 'FontAwesome';
+		font-style: normal;
+		font-size: 1.5rem;
+		color: black;
+		position: absolute;
+		left: 0;
+		top: 50%;
+		transform: translateY(-50%);
+		margin-right: 10px;
+		content: "\f106";
+	}
+
+	.accordion-section .panel-default .panel-title a.collapsed::after {
+		content: "\f107";
+	}
+
+	.accordion-section .panel-default .panel-body {
+		font-size: 1.2rem;
+	}
+
+	.accordion-section .panel-default .panel-body p {
+		font-size: 15px;
+	}
+
+	.side-item {
+		background: var(--primary);
+		border-radius: 5px;
+		text-align: center;
+		margin-bottom: 4px;
+	}
+
+	.side-item a {
+		color: white;
+	}
+}
+
+/******* FAQ end **************/

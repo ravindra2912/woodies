@@ -28,7 +28,7 @@
 						@endfor
 						<span>({{ $val->review_count }})</span>
 				</div> -->
-				<p class="product-price mt-2">Rs. {{ $val->price }}</p>
+				<p class="product-price mt-2 text-primary">Rs. {{ $val->price }} <del class="text-muted pl-2"  >Rs. {{ $val->original_price }}</del></p>
 			</div>
 		</div>
 	</a>

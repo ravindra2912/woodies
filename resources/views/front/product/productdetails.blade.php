@@ -50,11 +50,18 @@
 	}
 
 	#product-detail .cart-qty {
-		border: 1px solid var(--primary);
+		/* border: 1px solid var(--primary);
 		border-radius: 15px;
 		width: max-content;
 		padding: 2px 10px;
+		color: var(--primary); */
+
+		border: 1px solid var(--primary);
+		border-radius: 15px;
+		padding: 2px 10px;
 		color: var(--primary);
+		justify-content: space-between;
+		display: flex;
 	}
 
 	#product-detail .cart-qty span {
@@ -73,16 +80,16 @@
 		border: unset;
 	}
 
+	.btn-feverit {
+		top: 47px !important;
+	}
+
 	.btn-feverit,
 	.btn-feverits {
-		border: 1px solid #9A9A9A;
 		background: white;
-		border-radius: 20px;
-		padding: 8px 8px 5px 8px;
-		font-size: 20px;
 		color: #9A9A9A;
 		cursor: grab;
-		margin: 0px 0px 0px 12px;
+		padding: 2px 7px !important;
 	}
 
 	.fev-active,
@@ -253,6 +260,11 @@
 			<div class="col-lg-6 col-md-6 col-12 position-relative">
 
 				<i data-toggle="modal" data-target="#sharemodal" class="share fa-solid fa-share-alt"></i>
+				@if(Auth::check())
+				<span class="share btn-feverit {{ ($product->is_fevourit)? 'fev-active' :'' }}" id="{{ $product->id }}"><i class="fa-solid fa-heart"></i></span>
+				@else
+				<span class="share btn-feverit" data-toggle="modal" data-target="#authmodal"><i class="fa-solid fa-heart"></i></span>
+				@endif
 
 
 				<img loading="lazy" class="main-image m-show" src="{{ getImage(isset($product->images_data) && count($product->images_data) > 0 ? $product->images_data[0]->image:'') }}" alt="{{ $product->name }}" />
@@ -299,7 +311,7 @@
 				@if($product->stock == 1)
 				<div class="d-flex">
 					<p class="h3 font-weight-bold text-primary price-text pr-3">Rs. {{ $product->price }}</p>
-					<p class="h3 font-weight-bold  price-text" style="color:#9A9A9A"><del>Rs. {{ $product->price }}</del></p>
+					<p class="h3 font-weight-bold  price-text text-muted"><del>Rs. {{ $product->original_price }}</del></p>
 				</div>
 				@endif
 				<div class="row">
@@ -347,7 +359,7 @@
 						</div>
 						@endif
 						@endif
-						<div class="col-lg-3 col-md-12 col-12 mt-3">
+						<div class="col-lg-3 col-md-4 col-12 mt-3">
 							<div class="cart-qty">
 								<span><i class="fa-solid fa-minus qty-minus"></i></span>
 								<span class="d-qyt">1</span>
@@ -356,21 +368,20 @@
 
 						</div>
 						<input type="hidden" id="input-qty" name="quantity" value="1" />
-						<div class="col-lg-9 col-md-12 col-12 mt-3">
-							@if(Auth::check())
-							<button type="submit" class="btn btn-primary btn-round submit_button">ADD TO CART</button>
-							<a href="{{ route('cart') }}" class="btn btn-primary btn-round gotocart-btn" style="{{ ($product->in_cart == 0)? 'display:none;':'' }}">GO TO CART</a>
-							@else
-							<button type="button" data-toggle="modal" data-target="#authmodal" class="btn btn-primary btn-round submit_button">ADD TO CART</button>
-							@endif
-							<button type="button" class="btn btn-primary btn-round loading" style="display:none;">Loading ...</button>
-							<button type="button" class="btn btn-primary btn-round stock-out" style="display:none;">Out Of Stock</button>
+						<div class="col-lg-12 col-md-12 col-12 mt-3">
+							<div class="row">
+								@if(Auth::check())
+								<button type="submit" class="btn btn-primary btn-round submit_button mr-1 col-md-5 col-12">ADD TO CART</button>
+								<button type="button" class="btn btn-primary btn-round mr-1 col-md-5 col-12 loading" style="display:none;">Loading ...</button>
+								<a href="{{ route('cart') }}" class="btn btn-primary btn-round gotocart-btn mt-md-0 mt-2 col-md-5 col-12" style="{{ ($product->in_cart == 0)? 'display:none;':'' }}">GO TO CART</a>
+								@else
+								<button type="button" data-toggle="modal" data-target="#authmodal" class="btn btn-primary btn-round submit_button col-md-5 col-12">ADD TO CART</button>
+								@endif
 
-							@if(Auth::check())
-							<span class="btn-feverit {{ ($product->is_fevourit)? 'fev-active' :'' }}" id="{{ $product->id }}"><i class="fa-solid fa-heart"></i></span>
-							@else
-							<span class="btn-feverit" data-toggle="modal" data-target="#authmodal"><i class="fa-solid fa-heart"></i></span>
-							@endif
+								<button type="button" class="btn btn-primary btn-round mr-1 col-md-5 col-12 stock-out" style="display:none;">Out Of Stock</button>
+
+
+							</div>
 						</div>
 						</form>
 					</div>
@@ -503,7 +514,7 @@
 								@endfor
 								<span>({{ $val->review_count }})</span>
 						</div> -->
-						<p class="product-price mt-2">Rs. {{ $val->price }}</p>
+						<p class="product-price mt-2 text-primary">Rs. {{ $val->price }} <del class="text-muted pl-2">Rs. {{ $val->original_price }}</del></p>
 					</div>
 				</div>
 			</a>

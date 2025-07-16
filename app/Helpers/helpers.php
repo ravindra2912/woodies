@@ -1,21 +1,22 @@
 <?php
 
 use Carbon\Carbon;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Cache;
-use App\Models\AddToCart;
-use App\Models\Wishlist;
-use App\Models\ProductVariants;
-use App\Models\Coupon;
 use App\Models\Faq;
-use App\Models\LegalPage;
+use App\Models\Coupon;
 use App\Models\Orders;
-use App\Models\ProductImages;
+use App\Models\Category;
+use App\Models\Wishlist;
+use App\Models\AddToCart;
+use App\Models\LegalPage;
 use App\Models\OrderStatus;
+use Illuminate\Support\Str;
+use App\Models\ProductImages;
+use App\Models\ProductVariants;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Laravel\Facades\Image;
-use Illuminate\Support\Facades\File;
 
 
 //use Mail;
@@ -329,9 +330,18 @@ function getRealIP()
 	return $ip;
 }
 
+function getMainCategories()
+{
+	return Cache::rememberForever('main_categories_all', function () {
+		return Category::where('status','Active')->where('parent_id', null)->take(8)->get();
+	});
+}
+
 function getFaqs()
 {
-	return Faq::get();
+	return Cache::rememberForever('faqs_all', function () {
+		return Faq::get();
+	});
 }
 
 function getLagelage($pagetype)
@@ -436,7 +446,8 @@ function Overdue_GRVs()
 			'GRVDate' => '09 Aug 2024 at 16:37 hrs',
 			'DueDate' => '09 Aug 2024 at 16:37 hrs',
 			'Total' => 5
-		],[
+		],
+		[
 			'GRVNo' => 123,
 			'InvoiceNo' => '09/08/24',
 			'Supplier' => 'Antheneon Engineering LTD',
@@ -459,26 +470,26 @@ function BusinessOverview()
 {
 	$invoice_date = Carbon::now()->format('d M Y');
 	$record = [
-			'Stock Values' => [
-				'Opening Stock Value' => 'K35,771.82',
-				'Current Stock Value' => 'K35,678.16',
-			],
-			'Stock Sold' => [
-				'Quantity Sold' => '164.000',
-				'Cost' => 'K108.65',
-				'Sales Value' => 'K4,457.00',
-				'Profit' => 'K4,348.35',
-			],
-			'Stock Received' => [
-				'Items' => '0 Items Received',
-				'Total Quantity Received' => '0.000',
-				'Cost' => 'K0.00'
-			],
-			'Stock Adjusted' => [
-				'Stock Adjustments' => '0 Adjustments Done',
-				'Quantity' => '0.000',
-				'Value' => 'K0.00'
-			],
+		'Stock Values' => [
+			'Opening Stock Value' => 'K35,771.82',
+			'Current Stock Value' => 'K35,678.16',
+		],
+		'Stock Sold' => [
+			'Quantity Sold' => '164.000',
+			'Cost' => 'K108.65',
+			'Sales Value' => 'K4,457.00',
+			'Profit' => 'K4,348.35',
+		],
+		'Stock Received' => [
+			'Items' => '0 Items Received',
+			'Total Quantity Received' => '0.000',
+			'Cost' => 'K0.00'
+		],
+		'Stock Adjusted' => [
+			'Stock Adjustments' => '0 Adjustments Done',
+			'Quantity' => '0.000',
+			'Value' => 'K0.00'
+		],
 	];
 
 	echo $pdf = view('surat.BusinessOverviewReport', compact('invoice_date', 'record'))->render();
@@ -494,52 +505,52 @@ function SalesSummary()
 {
 	$invoice_date = Carbon::now()->format('d M Y');
 	$record = [
-			'PaymentTypeBreakdown' => [
-				[
-					'SLNo' => 1,
-					'PaymentType' => 'Cash',
-					'CostofSales' => 2000.00,
-					'Total' => 2500.00,
-					'profit' => 2500.00,
-				]
-			],
-			'Top3SellersbyTurnover' => [
-				[
-					'StockCode' => 'DOR002',
-					'Description' => '825 Flush Doors',
-					'Quantity' => 20.00,
-					'Total' => 250.00,
-				]
-			],
-			'Top3SellersbyQty' => [
-				[
-					'StockCode' => 'DOR002',
-					'Description' => '825 Flush Doors',
-					'Quantity' => 20.00,
-					'Total' => 250.00,
-				]
-			],
-			'Top3DepartmentSales' => [
-				[
-					'SLNo' => '1',
-					'Department' => 'DOORS / WINDOWS',
-					'Total' => 250.00,
-				]
-			],
-			'Top3CashierSales' => [
-				[
-					'SLNo' => '1',
-					'Cashier' => 'Nthandose',
-					'Total' => 250.00,
-				]
-			],
-			'Top3ComputerSales' => [
-				[
-					'SLNo' => '1',
-					'PCName' => 'Nthandose',
-					'Total' => 250.00,
-				]
-			],
+		'PaymentTypeBreakdown' => [
+			[
+				'SLNo' => 1,
+				'PaymentType' => 'Cash',
+				'CostofSales' => 2000.00,
+				'Total' => 2500.00,
+				'profit' => 2500.00,
+			]
+		],
+		'Top3SellersbyTurnover' => [
+			[
+				'StockCode' => 'DOR002',
+				'Description' => '825 Flush Doors',
+				'Quantity' => 20.00,
+				'Total' => 250.00,
+			]
+		],
+		'Top3SellersbyQty' => [
+			[
+				'StockCode' => 'DOR002',
+				'Description' => '825 Flush Doors',
+				'Quantity' => 20.00,
+				'Total' => 250.00,
+			]
+		],
+		'Top3DepartmentSales' => [
+			[
+				'SLNo' => '1',
+				'Department' => 'DOORS / WINDOWS',
+				'Total' => 250.00,
+			]
+		],
+		'Top3CashierSales' => [
+			[
+				'SLNo' => '1',
+				'Cashier' => 'Nthandose',
+				'Total' => 250.00,
+			]
+		],
+		'Top3ComputerSales' => [
+			[
+				'SLNo' => '1',
+				'PCName' => 'Nthandose',
+				'Total' => 250.00,
+			]
+		],
 	];
 
 	echo $pdf = view('surat.SalesSummaryReport', compact('invoice_date', 'record'))->render();

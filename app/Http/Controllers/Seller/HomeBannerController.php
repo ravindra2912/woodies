@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers\Seller;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Str;
-use Validator;
 use Auth;
 use File;
 use Image;
+use Validator;
 use App\Models\Category;
 use App\Models\HomeBanner;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Cache;
 //use App\Models\SubCategory;
 
 class HomeBannerController extends Controller
@@ -57,6 +58,7 @@ class HomeBannerController extends Controller
                 $HomeBanner->save();
                 $success = true;
                 $message =  'Category has been created successfully';
+                Cache::forget('banner_all');
             } catch (\Exception $e) {
                 $message = $e->getMessage();
                 // Remove new uploaded image if exist
@@ -125,6 +127,7 @@ class HomeBannerController extends Controller
 
                     $success = true;
                     $message =  "Banner has been updated successfully";
+                    Cache::forget('banner_all');
                 } catch (\Exception $e) {
 
                     // Remove new uploaded image if exist
@@ -156,6 +159,7 @@ class HomeBannerController extends Controller
                 fileRemoveStorage($cat->image);
 
                 $cat->delete();
+                Cache::forget('banner_all');
                 return redirect()->back()->with('success', 'Banner has been removed successfully');
             } catch (\Exception $e) {
                 //return redirect()->back()->with('danger', 'Some error occurred. Please try again after sometime');

@@ -10,43 +10,7 @@
 ])
 
 @section('custom_css')
-<style>
-	.accordion-section .panel-default .panel-title a {
-		display: block;
-		color: black;
-	}
 
-	.accordion-section .panel-default .panel-title a:after {
-		font-family: 'FontAwesome';
-		font-style: normal;
-		font-size: 1.5rem;
-		content: "\f106";
-		color: black;
-		float: left;
-		margin-top: -7px;
-		margin-right: 10px;
-	}
-
-	.accordion-section .panel-default .panel-title a.collapsed:after {
-		content: "\f107";
-	}
-
-	.accordion-section .panel-default .panel-body {
-		font-size: 1.2rem;
-	}
-
-
-	.side-item {
-		background: var(--primary);
-		border-radius: 5px;
-		text-align: center;
-		margin-bottom: 4px;
-	}
-
-	.side-item a {
-		color: white;
-	}
-</style>
 @endsection
 
 @section('content')
@@ -66,10 +30,9 @@
 
 			<div class="col-lg-12 col-md-12 col-12 mt-4">
 
-				<div class="row">
-
+				<div class="row " id="faqs">
 					<!-- Tab panels -->
-					<div class="tab-content vertical">
+					<div class="tab-content vertical w-100">
 						<!-- Panel 1 -->
 						<div class="tab-pane fade active show" id="panel21" role="tabpanel">
 							<div class="accordion-section clearfix mt-0" aria-label="Question Accordions">
@@ -82,7 +45,7 @@
 										<div class="panel-heading p-3 mb-1" role="tab" id="heading{{ $faq->id }}">
 											<div class="panel-title">
 												<a class="collapsed" role="button" title="" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ $faq->id }}" aria-expanded="true" aria-controls="collapse{{ $faq->id }}">
-												{{ $faq->question }}
+													{{ $faq->question }}
 												</a>
 											</div>
 										</div>

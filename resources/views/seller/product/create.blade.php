@@ -37,9 +37,9 @@
   <section class="content">
     <div class="container-fluid">
 
-      <form action="{{ route('product.store') }}" id="addproductform" class="card card-primary formaction" data-action="redirect" >
-      @csrf  
-      <div class="card-header">
+      <form action="{{ route('product.store') }}" id="addproductform" class="card card-primary formaction" data-action="redirect">
+        @csrf
+        <div class="card-header">
           <h3 class="card-title">Add Product</h3>
         </div>
         <div class="card-body row">
@@ -49,13 +49,8 @@
           </div>
 
           <div class="form-group col-md-4 col-sm-6">
-            <label >Brand</label>
+            <label>Brand</label>
             <input type="text" name="brand" id="brand" class="form-control" placeholder="Brand">
-          </div>
-
-          <div class="form-group col-md-4 col-sm-6">
-            <label class="required">Price</label>
-            <input type="text" name="price" id="price" class="form-control required" onkeypress="return isNumberKey(event,this)" placeholder="Price">
           </div>
 
           <div class="form-group col-md-4 col-sm-6">
@@ -81,6 +76,26 @@
               @endforeach
               @endif
             </select>
+          </div>
+
+          <div class="form-group col-md-4 col-sm-6">
+            <label class="required">Price (with discount)</label>
+            <input type="text" name="price" id="price" class="form-control required" onkeypress="return isNumberKey(event,this)" placeholder="Price">
+          </div>
+
+          <div class="form-group col-md-4 col-sm-6">
+            <label class="required">Original Price (without discount)</label>
+            <input type="text" name="original_price" id="original_price" class="form-control required" onkeypress="return isNumberKey(event,this)" placeholder="Original Price">
+          </div>
+
+          <div class="form-group col-md-4 col-sm-6">
+            <label class="required">Purchase Price</label>
+            <input type="text" name="purchase_price" id="purchase_price" class="form-control required" onkeypress="return isNumberKey(event,this)" placeholder="Purchase Price">
+          </div>
+
+          <div class="form-group col-md-4 col-sm-6">
+            <label class="required">Margin</label>
+            <input type="text" name="margin" id="margin" class="form-control required" onkeypress="return isNumberKey(event,this)" placeholder="Margin" readonly>
           </div>
 
           <div class="form-group col-md-12 col-sm-12">
@@ -153,13 +168,13 @@
         </div>
         <div class="card-footer">
           <div class="col-sm-12 text-right">
-              <button class="btn btn-danger" type="button" onclick="history.back()">Back</button>
-              <button class="btn btn-primary btn_action" type="submit">
-                <span id="loader" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
-                <span id="buttonText">Submit</span>
-              </button>
+            <button class="btn btn-danger" type="button" onclick="history.back()">Back</button>
+            <button class="btn btn-primary btn_action" type="submit">
+              <span id="loader" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+              <span id="buttonText">Submit</span>
+            </button>
 
-            </div>
+          </div>
         </div>
       </form>
     </div>
@@ -171,6 +186,18 @@
 <!-- Select2 -->
 <script src="{{ asset('admin_theme/plugins/select2/js/select2.full.min.js') }}"></script>
 <script type="text/javascript">
+  $('#price, #purchase_price').on('keyup', function() {
+    var price = parseFloat($('#price').val()) || 0;
+    var purchase_price = parseFloat($('#purchase_price').val()) || 0;
+    var margin = price - purchase_price;
+
+    if (!isNaN(margin)) {
+      $('#margin').val(margin.toFixed(2));
+    } else {
+      $('#margin').val(0);
+    }
+  });
+
   $(function() {
     //Initialize Select2 Elements
     $('.select2').select2()

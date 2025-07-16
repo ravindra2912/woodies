@@ -42,8 +42,6 @@
 </section>
 @endif
 
-
-
 <section id="home-category">
 	<div class="container mt-3">
 		<div class="row">
@@ -60,53 +58,6 @@
 	</div>
 </section>
 
-<!-- <section id="service-info">
-	<div class="container mt-3">
-		<div class="row">
-
-			<div class="col-lg-3 col-md-3 col-12 text-center ">
-				<div class="section-border p-2 m-3 service-box">
-					<div class="service-icon mb-2">
-						<img loading="lazy" class="i1" src="{{ asset('front/images/service/shipped.png') }}" alt="Free Shipping" />
-					</div>
-					<p class="font-weight-bold mb-0">Free Shipping</p>
-					<p class="service-info">Ut enim ad minim veniam liquip ami tomader</p>
-				</div>
-			</div>
-			<div class="col-lg-3 col-md-3 col-12 text-center ">
-				<div class="section-border p-2 m-3 service-box">
-					<div class="service-icon mb-2">
-						<img loading="lazy" class="i1" src="{{ asset('front/images/service/credit-card.png') }}" alt="Secure Payments" />
-					</div>
-					<p class="font-weight-bold mb-0">Secure Payments</p>
-					<p class="service-info">Ut enim ad minim veniam liquip ami tomader</p>
-				</div>
-			</div>
-
-			<div class="col-lg-3 col-md-3 col-12 text-center ">
-				<div class="section-border p-2 m-3 service-box">
-					<div class="service-icon mb-2">
-						<img loading="lazy" class="i1" src="{{ asset('front/images/service/parcel.png') }}" alt="Easy Returns" />
-					</div>
-					<p class="font-weight-bold mb-0">Easy Returns</p>
-					<p class="service-info">Ut enim ad minim veniam liquip ami tomader</p>
-				</div>
-			</div>
-
-			<div class="col-lg-3 col-md-3 col-12 text-center ">
-				<div class="section-border p-2 m-3 service-box">
-					<div class="service-icon mb-2">
-						<img loading="lazy" class="i1" src="{{ asset('front/images/service/headphones.png') }}" alt="24/7 Support" />
-					</div>
-					<p class="font-weight-bold mb-0">24/7 Support</p>
-					<p class="service-info">Ut enim ad minim veniam liquip ami tomader</p>
-				</div>
-			</div>
-
-		</div>
-	</div>
-</section> -->
-
 <section id="latest-arival ">
 	<div class="container  mt-5 pt-2">
 		<div class="row header-contaimer ">
@@ -116,7 +67,7 @@
 			</div>
 
 			@foreach($LatestArrival as $val)
-			<a href="{{ url('/products/'.$val->slug) }}" class="col-lg-2 col-md-2 col-6 mt-4 pos p-0">
+			<a href="{{ url('/products/'.$val->slug) }}" class="col-md-3 col-6 mt-4 pos p-0">
 				<div class="new-product">
 					<div class="product-img">
 						<img loading="lazy" class="product__single" src="{{ getImage(isset($val->images_data[0])?$val->images_data[0]->image:'') }}" alt="{{ $val->name }}">
@@ -135,7 +86,7 @@
 								@endfor
 								<span>({{ $val->review_count }})</span>
 						</div> -->
-						<p class="product-price mt-2">Rs. {{ $val->price }}</p>
+						<p class="product-price mt-2 text-primary">Rs. {{ $val->price }} <del class="text-muted pl-2"  >Rs. {{ $val->original_price }}</del></p>
 					</div>
 				</div>
 			</a>
@@ -269,7 +220,7 @@
 @endif
 
 
-<section id="Popular-Product">
+<!-- <section id="Popular-Product">
 	<div class="container  mt-5 section-border p-2 section-border">
 		<div class="row header-contaimer ">
 			<div class="col-lg-12 col-md-12 col-12 text-center">
@@ -284,7 +235,7 @@
 					<li class="nav-item">
 						<a class="nav-link {{ ($c == 0)? 'active':'' }} " data-toggle="tab" href="#{{$val->slug }}" role="tab" aria-controls="{{$val->slug }}">
 							<span class="texts">{{$val->name }}</span>
-							<!-- <span class="m-hide"><i class="fa-solid fa-shirt"></i></span> -->
+							<span class="m-hide"><i class="fab fa-pagelines"></i></span>
 						</a>
 					</li>
 					@php $c++; @endphp
@@ -308,16 +259,6 @@
 
 									<div class="">
 										<span class="pr-2">Rs. {{ $val->price }}</span>
-										<!-- <span class="ratting">
-											@for( $i=1; $i<=5; $i++)
-												@if($val->rating >= $i)
-												<i class="fa-solid fa-star text-warning"></i>
-												@else
-												<i class="fa-solid fa-star"></i>
-												@endif
-												@endfor
-												<span> ({{ $val->review_count }}) </span>
-										</span> -->
 										<span class="float-right">
 											<a href="{{ url('/products/'.$val->slug) }}" class="btn btn-primary btn-sm"><i class="fa-solid fa-cart-shopping pr-2"></i>Shop Now</a>
 										</span>
@@ -333,7 +274,164 @@
 			</div>
 		</div>
 	</div>
+</section> -->
+
+<section id="service-info" class="bg-light">
+	<div class="container  py-5">
+		<div class="row">
+
+			<div class="col-lg-3 col-md-3 col-12 text-center ">
+				<div class="section-border p-2 m-3 service-box">
+					<div class="service-icon mb-2">
+						<img loading="lazy" class="i1" src="{{ asset('front/images/service/shipped.png') }}" alt="Free Shipping" />
+					</div>
+					<p class="font-weight-bold mb-0">Free Shipping</p>
+					<p class="service-info">Ut enim ad minim veniam liquip ami tomader</p>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-3 col-12 text-center ">
+				<div class="section-border p-2 m-3 service-box">
+					<div class="service-icon mb-2">
+						<img loading="lazy" class="i1" src="{{ asset('front/images/service/credit-card.png') }}" alt="Secure Payments" />
+					</div>
+					<p class="font-weight-bold mb-0">Secure Payments</p>
+					<p class="service-info">Ut enim ad minim veniam liquip ami tomader</p>
+				</div>
+			</div>
+
+			<div class="col-lg-3 col-md-3 col-12 text-center ">
+				<div class="section-border p-2 m-3 service-box">
+					<div class="service-icon mb-2">
+						<img loading="lazy" class="i1" src="{{ asset('front/images/service/parcel.png') }}" alt="Easy Returns" />
+					</div>
+					<p class="font-weight-bold mb-0">Easy Returns</p>
+					<p class="service-info">Ut enim ad minim veniam liquip ami tomader</p>
+				</div>
+			</div>
+
+			<div class="col-lg-3 col-md-3 col-12 text-center ">
+				<div class="section-border p-2 m-3 service-box">
+					<div class="service-icon mb-2">
+						<img loading="lazy" class="i1" src="{{ asset('front/images/service/headphones.png') }}" alt="24/7 Support" />
+					</div>
+					<p class="font-weight-bold mb-0">24/7 Support</p>
+					<p class="service-info">Ut enim ad minim veniam liquip ami tomader</p>
+				</div>
+			</div>
+
+		</div>
+	</div>
 </section>
+
+<!-- <style>
+	#trusted-content {
+		.container {
+			background: #f3f3f3;
+			border-radius: 10px;
+			padding: 20px 25px;
+		}
+
+		h2 {
+			color: #333;
+		}
+
+		ul {
+			list-style: none;
+			padding: 0;
+		}
+
+		li {
+			margin-bottom: 10px;
+			padding-left: 25px;
+			position: relative;
+		}
+
+		li::before {
+			content: '✔';
+			color: green;
+			position: absolute;
+			left: 0;
+		}
+
+		iframe {
+			width: 100%;
+			height: 315px;
+			border: none;
+			border-radius: 10px;
+		}
+	}
+</style>
+<section id="trusted-content">
+	<div class="container">
+		<div class="row ">
+			<div class="col-md-6 col-12 mb-md-0 mb-3">
+				<h2>Why Customers Trust Us</h2>
+				<ul>
+					<li>100% Satisfaction Guarantee</li>
+					<li>Over 10,000+ Happy Customers</li>
+					<li>100% Secure Payments</li>
+					<li>24/7 Customer Support</li>
+					<li>Trusted by Industry Experts</li>
+				</ul>
+			</div>
+			<div class="col-md-6 col-12 video-container">
+				<iframe width="560" height="315"
+					src="https://www.youtube.com/embed/i4oTGptuJfE?si=4mnXqGbn9qrUvfSx"
+					title="YouTube video player"
+					frameborder="0"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+					allowfullscreen>
+				</iframe>
+			</div>
+		</div>
+	</div>
+</section> -->
+
+<section id="about" class="mt-5 mb-5 pb-5">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-lg-12 col-md-12 col-12 text-center">
+				<p class="h3 font-weight-bold">Frequently Asked Questions</p>
+				<p>Mation ullamco laboris nisi ut aliquip exea core dolor in reprehender fugiat nulla pariatur.</p>
+			</div>
+
+			<div class="col-lg-8 col-md-8 col-12 mt-4">
+				<div class="row " id="faqs">
+					<div class="tab-content vertical w-100">
+						<div class="tab-pane fade active show" id="panel21" role="tabpanel">
+							<div class="accordion-section clearfix mt-0" aria-label="Question Accordions">
+								<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+									@foreach (getFaqs() as $faq)
+									<div class="panel panel-default">
+										<div class="panel-heading p-3 mb-1" role="tab" id="heading{{ $faq->id }}">
+											<div class="panel-title">
+												<a class="collapsed" role="button" title="" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ $faq->id }}" aria-expanded="true" aria-controls="collapse{{ $faq->id }}">
+													{{ $faq->question }}
+												</a>
+											</div>
+										</div>
+										<div id="collapse{{ $faq->id }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{ $faq->id }}">
+											<div class="panel-body px-3 mb-4">
+												<p>{{ $faq->answer }}</p>
+											</div>
+										</div>
+									</div>
+									@endforeach
+								</div>
+							</div>
+						</div>
+						<!-- Panel 1 -->
+					</div>
+				</div>
+
+			</div>
+
+
+		</div>
+
+	</div>
+</section>
+
 
 
 <style>

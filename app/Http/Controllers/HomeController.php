@@ -12,6 +12,7 @@ use App\Models\HomeBanner;
 use Illuminate\Http\Request;
 use App\Models\ProductReview;
 use App\Models\ProductVariants;
+use Illuminate\Support\Facades\Cache;
 
 class HomeController extends Controller
 {
@@ -32,34 +33,39 @@ class HomeController extends Controller
 	 */
 	public function index(Request $request)
 	{
-		$HomeBanner = HomeBanner::where('status', 'Active')->get();
+		$HomeBanner = Cache::rememberForever('banner_all', function () {
+			return HomeBanner::where('status', 'Active')->get();
+		});
+
+
 
 		$PopularProduct = Product::with(['images_data'])
-			->whereNull('deleted_at')
 			->where('status', 'Active')
 			->orderBy('rating', 'desc')
 			->take(8)
 			->get();
 
 		$LatestArrival = Product::with(['images_data'])
-			->whereNull('deleted_at')
 			->where('status', 'Active')
 			->orderBy('created_at', 'desc')
-			->take(6)
+			->take(8)
 			->get();
 
 		$featured = Product::with(['images_data'])
-			->whereNull('deleted_at')
 			->where('status', 'Active')
-			// ->where('is_featured', '1')
+			->where('is_featured', '1')
 			->orderBy('created_at', 'desc')
 			->first();
 
-		$categoty = Category::select('id', 'name', 'slug', 'image', 'banner_img')
+		$categoty = Cache::rememberForever('get_home_category', function () {
+			return Category::select('id', 'name', 'slug', 'image', 'banner_img')
 			->where('parent_id', null)
 			->where('status', 'Active')
 			->orderBy('name', 'ASC')
 			->limit(4)->get();
+		});
+		
+		
 
 
 		return view('front.home', compact('HomeBanner', 'PopularProduct', 'LatestArrival', 'featured', 'categoty'));

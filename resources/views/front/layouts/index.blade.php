@@ -379,17 +379,12 @@
 
 			<div class="col-lg-2 col-md-6 mb-4 mb-lg-0  links">
 				<h5 class="text-uppercase mb-4 font-weight-bold h6">Popular Categories</h5>
-				@php
-				$footer_cat = App\Models\Category::where('status','Active')->where('parent_id', null)->take(8)->get();
-				@endphp
 				<ul class="list-unstyled">
-					@if(isset($footer_cat) && !empty($footer_cat))
-					@foreach($footer_cat as $cat)
+					@foreach(getMainCategories() as $cat)
 					<li>
 						<a href="{{ route('Products') }}?category={{ $cat->slug }}">{{ strtoupper($cat->name) }}</a>
 					</li>
 					@endforeach
-					@endif
 				</ul>
 			</div>
 

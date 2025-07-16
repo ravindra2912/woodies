@@ -8,6 +8,7 @@ use App\Models\Faq;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Validator;
 
 //use App\Models\SubCategory;
@@ -62,6 +63,7 @@ class FaqController extends Controller
                 $insert->save();
                 $success = true;
                 $message =  'Faq has been created successfully';
+                Cache::forget('faqs_all');
             }
         } catch (\Exception $e) {
             //$message = $e->getMessage();
@@ -124,6 +126,7 @@ class FaqController extends Controller
                 $update->save();
                 $success = true;
                 $message = "FAQ has been updated successfully";
+                Cache::forget('faqs_all');
             }
         } catch (\Exception $e) {
         }
@@ -145,6 +148,7 @@ class FaqController extends Controller
             try {
 
                 $faq->delete();
+                Cache::forget('faqs_all');
                 return redirect()->back()->with('success', 'FAQ has been removed successfully');
             } catch (\Exception $e) {
                 return redirect()->back()->with('danger', 'Some error occurred. Please try again after sometime');
@@ -153,5 +157,4 @@ class FaqController extends Controller
             return redirect()->back()->with('danger', 'FAQ invalid');
         }
     }
-
 }

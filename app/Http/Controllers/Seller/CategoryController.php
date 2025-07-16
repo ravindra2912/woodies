@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\Seller;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Str;
-use Validator;
 use Auth;
 use File;
 use Image;
+use Validator;
 use App\Models\Category;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Cache;
 //use App\Models\SubCategory;
 
 class CategoryController extends Controller
@@ -93,6 +94,8 @@ class CategoryController extends Controller
                     $category->save();
                     $success = true;
                     $message =  'Category has been created successfully';
+                    Cache::forget('main_categories_all');
+                    Cache::forget('get_home_category');
                 } else { // Same category name is exist
                     $message = "Category with this name already exist";
                 }
@@ -215,6 +218,8 @@ class CategoryController extends Controller
 
                         $success = true;
                         $message =  'Category has been updated successfully';
+                        Cache::forget('main_categories_all');
+                        Cache::forget('get_home_category');
                     } else {
                         $message = 'Invalid category';
                     }
@@ -257,6 +262,8 @@ class CategoryController extends Controller
                 fileRemoveStorage($cat->banner_img);
 
                 $cat->delete();
+                Cache::forget('main_categories_all');
+                Cache::forget('get_home_category');
                 return redirect()->back()->with('success', 'Category has been deleted successfully');
             } catch (\Exception $e) {
                 $message = $e->getMessage();

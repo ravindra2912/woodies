@@ -155,11 +155,6 @@
 				</div>
 
 				<div class="form-group col-md-4 col-sm-6">
-					<label class="required">Price</label>
-					<input type="text" name="price" id="price" class="form-control required" value="{{ isset($productData->price) && !empty($productData->price) ? $productData->price : 0 }}" onkeypress="return isNumberKey(event,this)" placeholder="Price">
-				</div>
-
-				<div class="form-group col-md-4 col-sm-6">
 					<label class="required">Manage Product variants</label>
 					<select class="form-control" name="is_variants" id="is_variants">
 						<option value="1" {{ ($productData->is_variants == 1)? "selected" : '' }}>yes</option>
@@ -181,6 +176,26 @@
 							{{ ucwords($data->name) }}
 						</option> @endforeach
 					</select>
+				</div>
+
+				<div class="form-group col-md-4 col-sm-6">
+					<label class="required">Price (with discount)</label>
+					<input type="text" name="price" id="price" class="form-control required" value="{{ isset($productData->price) && !empty($productData->price) ? $productData->price : 0 }}" onkeypress="return isNumberKey(event,this)" placeholder="Price">
+				</div>
+
+				<div class="form-group col-md-4 col-sm-6">
+					<label class="required">Original Price (without discount)</label>
+					<input type="text" name="original_price" id="original_price" class="form-control required" value="{{ isset($productData->original_price) && !empty($productData->original_price) ? $productData->original_price : 0 }}" onkeypress="return isNumberKey(event,this)" placeholder="Original Price">
+				</div>
+
+				<div class="form-group col-md-4 col-sm-6">
+					<label class="required">Purchase Price</label>
+					<input type="text" name="purchase_price" id="purchase_price" class="form-control required" value="{{ isset($productData->purchase_price) && !empty($productData->purchase_price) ? $productData->purchase_price : 0 }}" onkeypress="return isNumberKey(event,this)" placeholder="Purchase Price">
+				</div>
+
+				<div class="form-group col-md-4 col-sm-6">
+					<label class="required">Margin</label>
+					<input type="text" name="margin" id="margin" class="form-control required" value="{{ isset($productData->margin) && !empty($productData->margin) ? $productData->margin : 0 }}" onkeypress="return isNumberKey(event,this)" placeholder="Margin" readonly>
 				</div>
 
 				<div class="form-group col-md-4 col-sm-6">
@@ -295,6 +310,18 @@
 <!-- Select2 -->
 <script src="{{ asset('admin_theme/plugins/select2/js/select2.full.min.js') }}"></script>
 <script type="text/javascript">
+	$('#price, #purchase_price').on('keyup', function() {
+		var price = parseFloat($('#price').val()) || 0;
+		var purchase_price = parseFloat($('#purchase_price').val()) || 0;
+		var margin = price - purchase_price;
+
+		if (!isNaN(margin)) {
+			$('#margin').val(margin.toFixed(2));
+		} else {
+			$('#margin').val(0);
+		}
+	});
+
 	$(function() {
 		//Initialize Select2 Elements
 		$('.select2').select2()
@@ -362,7 +389,7 @@
 			height: 200
 		});
 
-		
+
 
 		$("input[id='images']").change(function() {
 			var fileUpload = $("input[id='images']");
