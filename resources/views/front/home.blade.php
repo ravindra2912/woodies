@@ -18,7 +18,7 @@
 			@php $c = 1; @endphp
 			@foreach($HomeBanner as $ban)
 			<div class="carousel-item {{ ($c == 1)?'active':'' }} ">
-				<img fetchpriority="high" class="d-block w-100" src="{{ getImage($ban->image) }}" alt="Banner">
+				<img @if($c == 1) fetchpriority="high" @else loading="lazy" @endif class="d-block w-100" src="{{ getImage($ban->image) }}" alt="Banner">
 				<!-- <div class="carousel-caption d-none d-md-block">
 					<div class="div">
 						<h5>Breezy Dresses </h5>
