@@ -123,6 +123,8 @@ Route::prefix('seller')->middleware(['auth', 'IsSeller'])->group(function() {
        // Category
 		Route::resource('category', App\Http\Controllers\Seller\CategoryController::class);
 		
+		Route::resource('testimonail', App\Http\Controllers\Seller\TestimonailController::class);
+		
 		//Users
 		Route::resource('Users', App\Http\Controllers\Seller\UsersController::class);
 		

@@ -66,8 +66,8 @@ class HomeController extends Controller
 		});
 		
 		
+		$testimonail = getTestimonail();
 
-
-		return view('front.home', compact('HomeBanner', 'PopularProduct', 'LatestArrival', 'featured', 'categoty'));
+		return view('front.home', compact('HomeBanner', 'PopularProduct', 'LatestArrival', 'featured', 'categoty', 'testimonail'));
 	}
 }

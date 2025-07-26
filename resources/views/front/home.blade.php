@@ -18,7 +18,7 @@
 			@php $c = 1; @endphp
 			@foreach($HomeBanner as $ban)
 			<div class="carousel-item {{ ($c == 1)?'active':'' }} ">
-				<img @if($c == 1) fetchpriority="high" @else loading="lazy" @endif class="d-block w-100" src="{{ getImage($ban->image) }}" alt="Banner">
+				<img @if($c==1) fetchpriority="high" @else loading="lazy" @endif class="d-block w-100" src="{{ getImage($ban->image) }}" alt="Banner">
 				<!-- <div class="carousel-caption d-none d-md-block">
 					<div class="div">
 						<h5>Breezy Dresses </h5>
@@ -86,7 +86,7 @@
 								@endfor
 								<span>({{ $val->review_count }})</span>
 						</div> -->
-						<p class="product-price mt-2 text-primary">Rs. {{ $val->price }} <del class="text-muted pl-2"  >Rs. {{ $val->original_price }}</del></p>
+						<p class="product-price mt-2 text-primary">Rs. {{ $val->price }} <del class="text-muted pl-2">Rs. {{ $val->original_price }}</del></p>
 					</div>
 				</div>
 			</a>
@@ -94,6 +94,114 @@
 		</div>
 	</div>
 </section>
+
+@if (count($testimonail) > 0)
+<style>
+	.video-testimonial-block {
+		position: relative;
+		width: auto;
+		height: 200px;
+		overflow: hidden;
+		margin-bottom: 5px;
+	}
+
+	.video-testimonial-block .video-thumbnail {
+		height: 100%;
+		width: 100%;
+		position: absolute;
+		z-index: 1;
+		background-size: cover;
+		top: 0;
+		left: 0;
+	}
+
+	.video-testimonial-block .video {}
+
+	.video-testimonial-block .video iframe {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		border: 0px;
+	}
+
+	.video-testimonial-block .video-play {
+		position: absolute;
+		z-index: 2;
+		top: 50%;
+		left: 50%;
+		margin-left: -40px;
+		margin-top: -18px;
+		text-decoration: none;
+	}
+
+	.video-testimonial-block .video-play::before {
+		content: "\f144";
+		font: normal normal normal 14px/1;
+		font-family: 'Font Awesome\ 5 Free';
+		font-weight: 900;
+		font-size: inherit;
+		text-rendering: auto;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+		font-size: 50px;
+		color: #b3b5bc;
+	}
+
+	.video-testimonial-block .video-play:hover::before {
+		color: #172651;
+	}
+
+	.img-fluid {
+		height: -webkit-fill-available;
+		object-fit: cover;
+		width: 100%;
+	}
+
+	.mb10 {
+		margin-bottom: 10px;
+	}
+
+	.section-title {
+		margin-bottom: 40px;
+	}
+</style>
+<section class="bg-light">
+	<div class="container">
+		<div class="row">
+			<div class="offset-xl-2 col-xl-8 offset-lg-2 col-lg-8 col-md-12 col-sm-12 col-12 text-center">
+				<!-- section-title -->
+				<div class="section-title">
+					<h2>What our customer says</h2>
+					<p>Quisque tempus justo molestie lacus blandit, eget molestie eros tristique. Nulla facilisi. Maecenas mollis ultricies faucibus.</p>
+				</div>
+			</div>
+			<!-- /.section-title -->
+		</div>
+		<div class="row">
+			@foreach ($testimonail as $testi)
+			<!-- video-testimonail -->
+			<div class="col-xl-3 col-lg-3 col-md-4 col-sm-12 col-12">
+				<div class="video-testimonial-block">
+					<div class="video-thumbnail"><img loading="lazy" src="{{ getimage($testi->thumbnail_image) }}" alt="" class="img-fluid"></div>
+					<div class="video">
+						<iframe src="{{ $testi->video_link }}" loading="lazy" allowfullscreen>
+						</iframe>
+					</div>
+					<a href="#" class="video-play"></a>
+				</div>
+				<div class="video-testimonial-content">
+					<h4 class="mb10">{{ $testi->name }}</h4>
+					<p>{{ $testi->description }}</p>
+				</div>
+			</div>
+			<!-- /.video-testimonail -->
+			@endforeach
+		</div>
+	</div>
+</section>
+@endif
 
 <!-- <section id="offer-grid">
 	<div class="container mt-5">
@@ -276,7 +384,7 @@
 	</div>
 </section> -->
 
-<section id="service-info" class="bg-light">
+<section id="service-info">
 	<div class="container  py-5">
 		<div class="row">
 
@@ -562,7 +670,21 @@
 @endsection
 
 @section('custom_js')
+<!-- for testimonials -->
+<script>
+	$(".video-play").on('click', function(e) {
+		e.preventDefault();
+		var vidWrap = $(this).parent(),
+			iframe = vidWrap.find('.video iframe'),
+			iframeSrc = iframe.attr('src'),
+			iframePlay = iframeSrc += "?autoplay=1";
+		vidWrap.children('.video-thumbnail').fadeOut();
+		vidWrap.children('.video-play').fadeOut();
+		vidWrap.find('.video iframe').attr('src', iframePlay);
 
+
+	});
+</script>
 <script>
 	var date = new Date("1, 8, 2023 00:00:00").getTime();
 

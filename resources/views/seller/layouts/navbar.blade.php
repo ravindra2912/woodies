@@ -41,6 +41,13 @@
 
             @if(Auth::user()->role_id == 1)
             <li class="nav-item">
+              <a href="{{ route('testimonail.index') }}" class="nav-link {{ request()->routeIs('testimonail*') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-list-alt"></i>
+                <p>testimonail</p>
+              </a>
+            </li>
+            
+            <li class="nav-item">
               <a href="{{ route('category.index') }}" class="nav-link {{ request()->routeIs('category*') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-list-alt"></i>
                 <p>Categories</p>

@@ -30,37 +30,35 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta property="al:web:url" content="{{ url()->current() }}">
 
-	<meta name="copyright" content="Hereits">
+	<meta name="copyright" content="woodieo">
 
 	<meta property="og:title" content="<?= $seo['title'] ?>">
 	<meta property="og:description" content="<?= $seo['description'] ?>">
 	<meta property="og:url" content="{{ url()->current() }}">
 	<meta property="og:type" content="website">
-	<meta property="og:site_name" content="Hereits - Local Business">
+	<meta property="og:site_name" content="woodieo - eccomerce Business">
 	<meta property="og:locale" content="en_GB">
 	<meta property="og:image" content="<?= $seo['image'] ?>">
 	<meta property="og:image:width" content="550" />
 	<meta property="og:image:height" content="413" />
 
 	<meta property="twitter:card" content="summary">
-	<meta property="twitter:site" content="hereitsdotcom">
+	<meta property="twitter:site" content="woodieodotcom">
 	<meta property="twitter:title" content="<?= $seo['title'] ?>">
 	<meta property="twitter:description" content="<?= $seo['description'] ?>">
 	<meta property="twitter:image" content="<?= $seo['image'] ?>">
 	<meta property="twitter:url" content="{{ url()->current() }}">
-	<meta name="twitter:domain" content="Hereits">
+	<meta name="twitter:domain" content="woodieo">
 
 	<link rel="alternate" href="">
 	<meta itemprop="name" content="<?= $seo['title'] ?>">
-	<meta itemprop="description" content="">
+	<meta itemprop="description" content="<?= $seo['description'] ?>" >
 	@endif
 
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="{{ asset('front/css/bootstrap4.3.1/bootstrap.min.css') }}" crossorigin="anonymous">
-	<!-- <link rel="stylesheet" href="{{ asset('front/css/bootstrap4.3.1/bootstrap.min.css') }}" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
 	<!-- link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css' -->
 	<link href='https://fonts.googleapis.com/css?family=Sansita' rel='stylesheet'>
-	<!-- link href="{{ asset('front/css/font/google.css') }}" rel='stylesheet' type='text/css' -->
 
 	<script src="{{ asset('front/js/font/fontawesome.js') }}" crossorigin="anonymous"></script>
 
@@ -79,21 +77,6 @@
 
 	<link rel="stylesheet" href="{{ asset('front/css/style.css') }}">
 
-	<?php /*	 
-	 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
-
-    <script src="https://kit.fontawesome.com/0796f45180.js" crossorigin="anonymous"></script>
-   
-	  <!-- Ajax Jquery -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" ></script>
-	
-	
-	
-	<!--Toastr -->
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>  */ ?>
 
 	<script>
 		var url = "{{ url('/') }}";

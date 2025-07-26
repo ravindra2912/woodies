@@ -12,6 +12,7 @@ use App\Models\OrderStatus;
 use Illuminate\Support\Str;
 use App\Models\ProductImages;
 use App\Models\ProductVariants;
+use App\Models\Testimonail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Cache;
@@ -341,6 +342,13 @@ function getFaqs()
 {
 	return Cache::rememberForever('faqs_all', function () {
 		return Faq::get();
+	});
+}
+
+function getTestimonail()
+{
+	return Cache::rememberForever('main_testimonail_all', function () {
+		return Testimonail::where('status', 'active')->get();
 	});
 }
 
