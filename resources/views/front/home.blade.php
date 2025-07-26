@@ -232,25 +232,6 @@
 			</div>
 			<!-- /.video-testimonail -->
 			@endforeach
-
-			@foreach ($testimonail as $testi)
-			<!-- video-testimonail -->
-			<div class="box-area">
-				<div class="video-testimonial-block">
-					<div class="video-thumbnail"><img loading="lazy" src="{{ getimage($testi->thumbnail_image) }}" alt="" class="img-fluid"></div>
-					<div class="video">
-						<iframe src="{{ $testi->video_link }}" loading="lazy" allowfullscreen>
-						</iframe>
-					</div>
-					<a href="#" class="video-play"></a>
-				</div>
-				<div class="video-testimonial-content">
-					<h4 class="mb10">{{ $testi->name }}</h4>
-					<p>{{ $testi->description }}</p>
-				</div>
-			</div>
-			<!-- /.video-testimonail -->
-			@endforeach
 		</div>
 	</div>
 </section>
