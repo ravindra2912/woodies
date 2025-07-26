@@ -97,77 +97,110 @@
 
 @if (count($testimonail) > 0)
 <style>
-	.video-testimonial-block {
-		position: relative;
-		width: auto;
-		height: 200px;
-		overflow: hidden;
-		margin-bottom: 5px;
-	}
+	#testimonail {
+		.rows {
+			display: flex;
+			flex-direction: row;
+			overflow-x: auto;
+			/* enables horizontal scroll */
+			overflow-y: hidden;
+			/* hides vertical scroll */
+			flex-wrap: nowrap;
+			scrollbar-width: none;
+			/* Firefox */
+			-ms-overflow-style: none;
+			/* IE/Edge */
+		}
 
-	.video-testimonial-block .video-thumbnail {
-		height: 100%;
-		width: 100%;
-		position: absolute;
-		z-index: 1;
-		background-size: cover;
-		top: 0;
-		left: 0;
-	}
+		.rows::-webkit-scrollbar {
+			display: none;
+			/* Chrome, Safari */
+		}
 
-	.video-testimonial-block .video {}
+		.box-area {
+			width: 300px;
+			margin-right: 15px;
+		}
 
-	.video-testimonial-block .video iframe {
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		border: 0px;
-	}
+		.video-testimonial-block {
+			position: relative;
+			width: 300px;
+			height: 400px;
+			overflow: hidden;
+			margin-bottom: 5px;
+		}
 
-	.video-testimonial-block .video-play {
-		position: absolute;
-		z-index: 2;
-		top: 50%;
-		left: 50%;
-		margin-left: -40px;
-		margin-top: -18px;
-		text-decoration: none;
-	}
+		.video-testimonial-block .video-thumbnail {
+			height: 100%;
+			width: 100%;
+			position: absolute;
+			z-index: 1;
+			background-size: cover;
+			top: 0;
+			left: 0;
+		}
 
-	.video-testimonial-block .video-play::before {
-		content: "\f144";
-		font: normal normal normal 14px/1;
-		font-family: 'Font Awesome\ 5 Free';
-		font-weight: 900;
-		font-size: inherit;
-		text-rendering: auto;
-		-webkit-font-smoothing: antialiased;
-		-moz-osx-font-smoothing: grayscale;
-		font-size: 50px;
-		color: #b3b5bc;
-	}
+		.video-testimonial-block .video {}
 
-	.video-testimonial-block .video-play:hover::before {
-		color: #172651;
-	}
+		.video-testimonial-block .video iframe {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			border: 0px;
+		}
 
-	.img-fluid {
-		height: -webkit-fill-available;
-		object-fit: cover;
-		width: 100%;
-	}
+		.video-testimonial-block .video-play {
+			position: absolute;
+			z-index: 2;
+			top: 50%;
+			left: 50%;
+			margin-left: -40px;
+			margin-top: -18px;
+			text-decoration: none;
+		}
 
-	.mb10 {
-		margin-bottom: 10px;
-	}
+		.video-testimonial-block .video-play::before {
+			content: "\f144";
+			font: normal normal normal 14px/1;
+			font-family: 'Font Awesome\ 5 Free';
+			font-weight: 900;
+			font-size: inherit;
+			text-rendering: auto;
+			-webkit-font-smoothing: antialiased;
+			-moz-osx-font-smoothing: grayscale;
+			font-size: 50px;
+			color: #b3b5bc;
+		}
 
-	.section-title {
-		margin-bottom: 40px;
+		.video-testimonial-block .video-play:hover::before {
+			color: #172651;
+		}
+
+		.img-fluid {
+			height: -webkit-fill-available;
+			object-fit: cover;
+			width: 100%;
+		}
+
+		.mb10 {
+			margin-bottom: 10px;
+		}
+
+		.section-title {
+			margin-bottom: 40px;
+		}
+
+		@media only screen and (max-width: 600px) {
+			.video-testimonial-block {
+				width: 180px;
+				height: 240px;
+			}
+		}
 	}
 </style>
-<section class="bg-light">
+<section class="bg-light" id="testimonail">
 	<div class="container">
 		<div class="row">
 			<div class="offset-xl-2 col-xl-8 offset-lg-2 col-lg-8 col-md-12 col-sm-12 col-12 text-center">
@@ -179,10 +212,30 @@
 			</div>
 			<!-- /.section-title -->
 		</div>
-		<div class="row">
+		<div class="rows">
 			@foreach ($testimonail as $testi)
 			<!-- video-testimonail -->
-			<div class="col-xl-3 col-lg-3 col-md-4 col-sm-12 col-12">
+			<div class="box-area">
+				<!-- <div class="col-xl-3 col-lg-3 col-md-4 col-sm-12 col-12"> -->
+				<div class="video-testimonial-block">
+					<div class="video-thumbnail"><img loading="lazy" src="{{ getimage($testi->thumbnail_image) }}" alt="" class="img-fluid"></div>
+					<div class="video">
+						<iframe src="{{ $testi->video_link }}" loading="lazy" allowfullscreen>
+						</iframe>
+					</div>
+					<a href="#" class="video-play"></a>
+				</div>
+				<div class="video-testimonial-content">
+					<h4 class="mb10">{{ $testi->name }}</h4>
+					<p>{{ $testi->description }}</p>
+				</div>
+			</div>
+			<!-- /.video-testimonail -->
+			@endforeach
+
+			@foreach ($testimonail as $testi)
+			<!-- video-testimonail -->
+			<div class="box-area">
 				<div class="video-testimonial-block">
 					<div class="video-thumbnail"><img loading="lazy" src="{{ getimage($testi->thumbnail_image) }}" alt="" class="img-fluid"></div>
 					<div class="video">
