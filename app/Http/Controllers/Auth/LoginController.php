@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
+use Hash;
 // use App\Providers\RouteServiceProvider;
 // use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
 use Validator;
-use Hash;
 use App\Models\User;
+use App\Models\AddToCart;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
 
 class LoginController extends Controller
 {
@@ -70,6 +71,10 @@ class LoginController extends Controller
                 } else {
                     $data = array('redirect_url' => route('home'));
                 }
+
+                // cart adjustment
+                AddToCart::where('device_id', getDeviceId())->update(['user_id' => Auth::user()->id]);
+                
                 $success = true;
                 $message = "Sign in successfully";
             } else {

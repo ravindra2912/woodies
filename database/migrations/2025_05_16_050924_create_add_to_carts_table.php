@@ -15,7 +15,8 @@ class CreateAddToCartsTable extends Migration
     {
         Schema::create('add_to_carts', function (Blueprint $table) {
             $table->id();
-			$table->bigInteger('user_id');
+			$table->bigInteger('user_id')->nullable();
+			$table->string('device_id')->nullable();
 			$table->bigInteger('product_id');
 			$table->Integer('quantity');
 			$table->bigInteger('Variants_id')->nullable();

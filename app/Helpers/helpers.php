@@ -9,10 +9,11 @@ use App\Models\Wishlist;
 use App\Models\AddToCart;
 use App\Models\LegalPage;
 use App\Models\OrderStatus;
+use App\Models\Testimonail;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 use App\Models\ProductImages;
 use App\Models\ProductVariants;
-use App\Models\Testimonail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Cache;
@@ -33,10 +34,17 @@ function systemDetails()
 
 function get_count()
 {
-	$data['cart_count'] = 0;
 	$data['wishlist_count'] = 0;
+	$cart_count = AddToCart::query();
 	if (Auth::check()) {
-		$data['cart_count'] = AddToCart::where('user_id', Auth::user()->id)->count();
+		$cart_count = $cart_count->where('user_id', Auth::user()->id)->count();
+	} else {
+		$cart_count = $cart_count->where('device_id', getDeviceId())->count();
+	}
+	$data['cart_count'] = $cart_count;
+	if (Auth::check()) {
+		// $data['cart_count'] = AddToCart::where('user_id', Auth::user()->id)->count();
+
 		$data['wishlist_count'] = Wishlist::where('user_id', Auth::user()->id)->count();
 	}
 
@@ -47,9 +55,14 @@ function get_count()
 function check_cart()
 {
 	$data['changes'] = false;
-	$carts = AddToCart::where('user_id', Auth::user()->id)
-		->with(['product_data', 'images_data'])
-		->get();
+
+	$carts = AddToCart::with(['product_data']);
+	if (Auth::check()) {
+		$carts = $carts->where('user_id', Auth::user()->id);
+	} else {
+		$carts = $carts->where('device_id', getDeviceId());
+	}
+	$carts = $carts->get();
 
 	foreach ($carts as $cdata) {
 		$delete = false;
@@ -334,7 +347,7 @@ function getRealIP()
 function getMainCategories()
 {
 	return Cache::rememberForever('main_categories_all', function () {
-		return Category::where('status','Active')->where('parent_id', null)->take(8)->get();
+		return Category::where('status', 'Active')->where('parent_id', null)->take(8)->get();
 	});
 }
 
@@ -380,6 +393,13 @@ function getUserId()
 	}
 	return null;
 }
+
+function getDeviceId()
+{
+	return session('device_id');
+	// session()->forget('device_id');
+}
+
 
 
 // ============================

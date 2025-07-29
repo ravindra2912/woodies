@@ -2,19 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Validator;
 use Carbon\Carbon;
-use Auth;
-use App\Models\Category;
 use App\Models\Product;
-use App\Models\VariantName;
+// use Auth;
+use App\Models\Category;
 use App\Models\Variants;
 use App\Models\Wishlist;
-use App\Models\ProductVariants;
-use App\Models\ProductReview;
 use App\Models\AddToCart;
+use App\Models\VariantName;
+use Illuminate\Http\Request;
 use App\Models\ProductImages;
+use App\Models\ProductReview;
+use App\Models\ProductVariants;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -127,7 +128,7 @@ class ProductController extends Controller
 	{
 		$product = Product::with(['categories', 'images_data'])->where('slug', $slug)->first();
 
-		if(!$product || $product->status != 'Active'){
+		if (!$product || $product->status != 'Active') {
 			return view('404');
 		}
 
@@ -155,10 +156,14 @@ class ProductController extends Controller
 			$product->is_fevourit = 1;
 		}
 
-		$product->in_cart = 0;
-		if (Auth::check() && AddToCart::where('user_id', Auth::user()->id)->where('product_id', $product->id)->first()) {
-			$product->in_cart = 1;
+		//check if product is in cart
+		$cartQuery = AddToCart::where('product_id', $product->id);
+		if (Auth::check()) {
+			$cartQuery->where('user_id', Auth::id());
+		} else {
+			$cartQuery->where('device_id', getDeviceId());
 		}
+		$product->in_cart = $cartQuery->exists() ? 1 : 0;
 
 		$product->review_count = ProductReview::where('product_id', $product->id)->count();
 

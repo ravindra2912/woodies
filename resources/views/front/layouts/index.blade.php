@@ -52,7 +52,7 @@
 
 	<link rel="alternate" href="">
 	<meta itemprop="name" content="<?= $seo['title'] ?>">
-	<meta itemprop="description" content="<?= $seo['description'] ?>" >
+	<meta itemprop="description" content="<?= $seo['description'] ?>">
 	@endif
 
 	<!-- Bootstrap CSS -->
@@ -113,12 +113,12 @@
 		<div class="nav-icons order-lg-last">
 			<div class="mb-0 d-flex">
 				<a href="#" class="d-flex align-items-center justify-content-center search-icon" aria-label="search"><i class="fa-solid fa-magnifying-glass"></i></a>
-				@if(Auth::check())
 
 				@php
 				$count = get_count();
 				@endphp
 
+				@if(Auth::check())
 				<div class="dropdown m-hide">
 					<div class=" dropdown-toggle" data-toggle="dropdown" id="profileDropdown" aria-expanded="true" aria-label="profile">
 						<i class="fa-regular fa-circle-user" style="font-size: 20px;"></i>
@@ -139,18 +139,16 @@
 					<i class="fa-regular fa-heart">@if($count['wishlist_count'] >0)<span class="badge badge-pill badge-danger hart-badge">{{ $count['wishlist_count'] }}</span> @endif</i>
 				</a>
 
-				<a href="{{ route('cart') }}" class="d-flex align-items-center justify-content-center pos" aria-label="cart">
-					<i class="fa-solid fa-bag-shopping">@if($count['cart_count'] >0)<span class="badge badge-pill badge-danger shopping-badge">{{ $count['cart_count'] }}</span> @endif </i>
-				</a>
+
 				@else
 				<a href="#" class="d-flex align-items-center justify-content-center m-hide pos" data-toggle="modal" data-target="#authmodal" aria-label="profile"><i class="fa-regular fa-circle-user" style="font-size: 20px;"></i></a>
 				<a href="#" class="d-flex align-items-center justify-content-center pos" data-toggle="modal" data-target="#authmodal" aria-label="wishlist">
 					<i class="fa-regular fa-heart"></i>
 				</a>
-				<a href="#" class="d-flex align-items-center justify-content-center pos" data-toggle="modal" data-target="#authmodal" aria-label="cart">
-					<i class="fa-solid fa-bag-shopping"></i>
-				</a>
 				@endif
+				<a href="{{ route('cart') }}" class="d-flex align-items-center justify-content-center pos" aria-label="cart">
+					<i class="fa-solid fa-bag-shopping">@if($count['cart_count'] >0)<span class="badge badge-pill badge-danger shopping-badge">{{ $count['cart_count'] }}</span> @endif </i>
+				</a>
 
 			</div>
 		</div>
@@ -355,7 +353,7 @@
 					@foreach (getLagelages() as $lpage)
 					<li><a href="{{ route($lpage->page_type) }}">{{ formatString($lpage->page_type) }}</a></li>
 					@endforeach
-					
+
 					<li><a href="{{ url('/ContactUs') }}">Contact Us</a></li>
 				</ul>
 			</div>

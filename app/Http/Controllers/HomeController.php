@@ -9,10 +9,12 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Models\Wishlist;
 use App\Models\HomeBanner;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\ProductReview;
 use App\Models\ProductVariants;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Cookie;
 
 class HomeController extends Controller
 {
@@ -32,7 +34,7 @@ class HomeController extends Controller
 	 * @return \Illuminate\Contracts\Support\Renderable
 	 */
 	public function index(Request $request)
-	{
+	{		
 		$HomeBanner = Cache::rememberForever('banner_all', function () {
 			return HomeBanner::where('status', 'Active')->get();
 		});
@@ -59,13 +61,13 @@ class HomeController extends Controller
 
 		$categoty = Cache::rememberForever('get_home_category', function () {
 			return Category::select('id', 'name', 'slug', 'image', 'banner_img')
-			->where('parent_id', null)
-			->where('status', 'Active')
-			->orderBy('name', 'ASC')
-			->limit(4)->get();
+				->where('parent_id', null)
+				->where('status', 'Active')
+				->orderBy('name', 'ASC')
+				->limit(4)->get();
 		});
-		
-		
+
+
 		$testimonail = getTestimonail();
 
 		return view('front.home', compact('HomeBanner', 'PopularProduct', 'LatestArrival', 'featured', 'categoty', 'testimonail'));

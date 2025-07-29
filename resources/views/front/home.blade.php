@@ -112,6 +112,8 @@
 			/* IE/Edge */
 		}
 
+
+
 		.rows::-webkit-scrollbar {
 			display: none;
 			/* Chrome, Safari */
@@ -193,6 +195,10 @@
 		}
 
 		@media only screen and (max-width: 600px) {
+			.container {
+				max-width: 100% !important;
+			}
+
 			.video-testimonial-block {
 				width: 180px;
 				height: 240px;

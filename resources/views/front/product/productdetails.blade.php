@@ -370,13 +370,10 @@
 						<input type="hidden" id="input-qty" name="quantity" value="1" />
 						<div class="col-lg-12 col-md-12 col-12 mt-3">
 							<div class="row">
-								@if(Auth::check())
 								<button type="submit" class="btn btn-primary btn-round submit_button mr-1 col-md-5 col-12">ADD TO CART</button>
 								<button type="button" class="btn btn-primary btn-round mr-1 col-md-5 col-12 loading" style="display:none;">Loading ...</button>
 								<a href="{{ route('cart') }}" class="btn btn-primary btn-round gotocart-btn mt-md-0 mt-2 col-md-5 col-12" style="{{ ($product->in_cart == 0)? 'display:none;':'' }}">GO TO CART</a>
-								@else
-								<button type="button" data-toggle="modal" data-target="#authmodal" class="btn btn-primary btn-round submit_button col-md-5 col-12">ADD TO CART</button>
-								@endif
+								
 
 								<button type="button" class="btn btn-primary btn-round mr-1 col-md-5 col-12 stock-out" style="display:none;">Out Of Stock</button>
 
