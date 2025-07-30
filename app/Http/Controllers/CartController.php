@@ -366,7 +366,6 @@ class CartController extends Controller
 
 	public function remove_from_cart(Request $request)
 	{
-
 		$success = false;
 		$message = "Some error occurred. Please try again after sometime";
 		$data = array();
