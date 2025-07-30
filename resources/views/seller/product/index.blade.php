@@ -49,13 +49,13 @@
 
 							<table id="example1" class="table table-striped w-100">
 								<thead>
-									<tr>
+									<tr >
 										<th>#</th>
 										<th>Product Name</th>
 										<th>Price</th>
 										<th>Category Name</th>
 										<th>Status</th>
-										<th>Action</th>
+										<th class="text-center">Action</th>
 									</tr>
 								</thead>
 								<tbody>
