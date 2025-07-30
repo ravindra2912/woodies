@@ -4,10 +4,8 @@
 
 <!-- Sweet Alert -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<!-- <link rel="stylesheet" type="text/css" href="{{ asset('admin_theme/dist/css/jquery.dataTables.css') }}" /> -->
 <!-- DataTables CSS -->
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
-<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.dataTables.min.css">
+<link href="{{ asset('admin_theme/DataTables/datatables.min.css') }}" rel="stylesheet">
 
 <style>
 	.filter input,
@@ -99,9 +97,7 @@
 
 @section('custom_js')
 <!-- DataTables -->
-<!-- <script src="//cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script> -->
-<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
+<script src="{{ asset('admin_theme/DataTables/datatables.min.js') }}"></script>
 
 <script type="text/javascript">
 	$(function() {
