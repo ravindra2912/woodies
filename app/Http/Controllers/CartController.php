@@ -383,7 +383,6 @@ class CartController extends Controller
 
 			$cart = AddToCart::where('id', $request->cart_id)->first();
 			if ($request->delete_all == 1) {
-				AddToCart::where('user_id', Auth::user()->id)->delete();
 				$del = AddToCart::query();
 				if (Auth::check()) {
 					$del = $del->where('user_id', Auth::user()->id);
