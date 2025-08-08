@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Blog;
 use PDF;
 use Auth;
 use Carbon\Carbon;
@@ -58,6 +59,11 @@ class HomeController extends Controller
 			->where('is_featured', '1')
 			->orderBy('created_at', 'desc')
 			->first();
+			
+		$blogs = Blog::select('id', 'title', 'image', 'background_color', 'slug', 'created_at')
+			->where('status', 'Active')
+			->limit(4)
+			->get();
 
 		$categoty = Cache::rememberForever('get_home_category', function () {
 			return Category::select('id', 'name', 'slug', 'image', 'banner_img')
@@ -70,6 +76,6 @@ class HomeController extends Controller
 
 		$testimonail = getTestimonail();
 
-		return view('front.home', compact('HomeBanner', 'PopularProduct', 'LatestArrival', 'featured', 'categoty', 'testimonail'));
+		return view('front.home', compact('HomeBanner', 'PopularProduct', 'LatestArrival', 'featured', 'categoty', 'testimonail', 'blogs'));
 	}
 }

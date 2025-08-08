@@ -31,6 +31,9 @@ Route::post('/reset_password', [App\Http\Controllers\Api\AuthController::class, 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('/');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+Route::get('/blogs', [App\Http\Controllers\BlogController::class, 'index'])->name('blogs');
+Route::get('/blogs/{slug}', [App\Http\Controllers\BlogController::class, 'details'])->name('blogs.details');
+
 Route::get('/products', [App\Http\Controllers\ProductController::class, 'index'])->name('Products');
 Route::post('/products/render_product_list', [App\Http\Controllers\ProductController::class, 'render_product_list'])->name('Products.render_product_list');
 Route::post('/products/submit_review', [App\Http\Controllers\ProductController::class, 'store_review'])->name('Products.submit_review');
@@ -124,6 +127,8 @@ Route::prefix('seller')->middleware(['auth', 'IsSeller'])->group(function() {
 		Route::resource('category', App\Http\Controllers\Seller\CategoryController::class);
 		
 		Route::resource('testimonail', App\Http\Controllers\Seller\TestimonailController::class);
+
+		Route::resource('blog', App\Http\Controllers\Seller\BlogController::class);
 		
 		//Users
 		Route::resource('Users', App\Http\Controllers\Seller\UsersController::class);

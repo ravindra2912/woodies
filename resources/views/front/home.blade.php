@@ -580,6 +580,37 @@
 	</div>
 </section>
 
+@if($blogs)
+
+<section id="blogs" class="mt-5 mb-5 pb-5 bg-light">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-lg-12 col-md-12 col-12 text-center">
+				<p class="h3 font-weight-bold">Blogs</p>
+				<p>Stay ahead in the world of shopping with our e-commerce blogs. Discover product reviews, buying guides, style tips, and behind-the-scenes stories that help you shop smarter and live better.</p>
+			</div>
+
+			<div class=" col-12 mt-4">
+				<div class="row">
+					@foreach ($blogs as $blog)
+					<a href="{{ route('blogs.details', ['slug' => $blog->slug]) }}" class="col-md-3 col-12">
+						<div class="img-section" style="background: {{ $blog->background_color }};">
+							<img src="{{ getImage($blog->image) }}" class="blog-img" />
+						</div>
+						<h4 class="mt-3">{{ $blog->title }}</h4>
+						<p class="text-muted">{{ get_date($blog->created_at, 'd M Y') }}</p>
+					</a>
+					@endforeach
+				</div>
+			</div>
+
+
+		</div>
+
+	</div>
+</section>
+
+@endif
 
 
 <style>

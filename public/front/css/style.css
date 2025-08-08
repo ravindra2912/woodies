@@ -1508,3 +1508,141 @@ button.toast-close-button {
 }
 
 /******* FAQ end **************/
+
+/******* blog start **************/
+#blogs {
+	.img-section {
+		background: red;
+		padding: 15px;
+		border-radius: 10px;
+
+		.blog-img {
+			height: 200px;
+			width: 100%;
+			object-fit: contain;
+		}
+	}
+}
+
+#blogdetails {
+	figure{
+		width: -webkit-fill-available !important;
+	}
+	.banner {
+		padding: 20px 20px;
+
+		img{
+			height: 400px;
+			width: 100%;
+			object-fit: contain;
+		}
+
+		.title {
+			font-size: 70px;
+		}
+
+		.breadcrumb {
+			padding: 0;
+			background: transparent;
+			margin-bottom: 0;
+			display: -webkit-box;
+			display: -ms-flexbox;
+			display: flex;
+
+			li:first-child::before {
+				display: none;
+			}
+
+
+			.breadcrumb-item {
+				display: -webkit-inline-box;
+				display: -ms-inline-flexbox;
+				display: inline-flex;
+				-webkit-box-align: center;
+				-ms-flex-align: center;
+				align-items: center;
+				font-size: 18px;
+				padding-left: 12px;
+				overflow: hidden;
+			}
+
+			.breadcrumb-item {
+				position: relative;
+				color: white;
+			}
+
+			.breadcrumb-item a {
+				color: white;
+			}
+		}
+
+		.blog-detail-banner.white-content .breadcrumb .breadcrumb-item:before {
+			background: #fff;
+		}
+
+		.breadcrumb .breadcrumb-item:before {
+			content: "\f111";
+			font-family: "Font Awesome 5 Free";
+			font-weight: 900;
+			font-size: 10px;
+			padding-right: 12px;
+			margin-top: 3px;
+			font-size: 14px;
+			color: rgba(255, 255, 255, 0.8);
+		}
+
+		.blog-type {
+			ul {
+				padding: 0;
+				margin: 0;
+				list-style: none;
+				display: -webkit-box;
+				display: -ms-flexbox;
+				display: flex;
+				-webkit-box-align: center;
+				-ms-flex-align: center;
+				align-items: center;
+				-webkit-box-pack: start;
+				-ms-flex-pack: start;
+				justify-content: flex-start;
+				-ms-flex-wrap: wrap;
+				flex-wrap: wrap;
+				gap: 10px;
+				margin: 20px 0;
+			}
+
+			li {
+				color: rgb(255, 255, 255) !important;
+				background-color: rgba(255, 255, 255, 0.2);
+				border: 1px solid rgba(255, 255, 255, 0.5);
+				font-size: 16px;
+				font-weight: 600;
+				position: relative;
+				padding: 6px 15px;
+				border-radius: 80px;
+			}
+
+			a {
+				font-size: inherit;
+				font-weight: inherit;
+				color: inherit;
+			}
+		}
+
+	}
+
+	@media only screen and (max-width: 600px) {
+		.banner {
+		padding: 10px;
+
+		img{
+			height: 300px;
+		}
+
+		.title {
+			font-size: 50px;
+		}
+	}
+}
+
+/******* blog end **************/

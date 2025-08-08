@@ -41,13 +41,6 @@
 
             @if(Auth::user()->role_id == 1)
             <li class="nav-item">
-              <a href="{{ route('testimonail.index') }}" class="nav-link {{ request()->routeIs('testimonail*') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-list-alt"></i>
-                <p>testimonail</p>
-              </a>
-            </li>
-            
-            <li class="nav-item">
               <a href="{{ route('category.index') }}" class="nav-link {{ request()->routeIs('category*') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-list-alt"></i>
                 <p>Categories</p>
@@ -97,6 +90,19 @@
             </li>
 
             @if(Auth::user()->role_id == 1)
+            <li class="nav-item">
+              <a href="{{ route('blog.index') }}" class="nav-link {{ request()->routeIs('blog*') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-blog"></i>
+                <p>Blogs</p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a href="{{ route('testimonail.index') }}" class="nav-link {{ request()->routeIs('testimonail*') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-comments"></i>
+                <p>Testimonail</p>
+              </a>
+            </li>
             <li class="nav-item {{ (request()->routeIs('lagel-pages*') || request()->routeIs('faq*') || request()->routeIs('social_links*') || request()->routeIs('site_seo*') || request()->routeIs('homebanner*')) ? 'menu-is-opening menu-open ' : '' }}">
               <a href="javascript:;" class="nav-link">
                 <i class="nav-icon fas fa-cog"></i>
