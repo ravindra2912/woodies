@@ -25,9 +25,11 @@ class BlogController extends Controller
 	 */
 	public function index(Request $request)
 	{		
-		
+		$blogs = Blog::select('id', 'title', 'image', 'background_color', 'slug', 'created_at')
+			->where('status', 'Active')
+			->get();
 
-		return view('front.blog.index');
+		return view('front.blog.index', compact('blogs'));
 	}
 	
 	public function details(Request $request, $slug)
